@@ -1,0 +1,12 @@
+{% extends "base" %}
+{% block content %}
+<form method="POST" target=_blank action="/show">
+{{ form.bibtex(cols=20, rows=25) }}
+<br>
+{{ form.tags(size=10) }}
+<br>
+{{ form.description(cols=25, rows=25) }}
+<br>
+{{ form.submit }}
+</form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base" %}
+{% block content %}
+<a href='#'>All:</a>
+<br>
+<ul>
+{% for i,j in sorted_tags.items() %}
+<li><a href='/tags/{{i}}' target=_blank>{{i}}</a>({{j}})</li>
+{% endfor %}
+</ul>
+{% for i in titles %}
+<p><a href='/paper/{{i['_id']}}'>{{i['title']}}</a></p>
+{% endfor %}
+{% endblock %}
+

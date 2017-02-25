@@ -1,0 +1,10 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<body>
+>>>   <a href="/home">home</a>&nbsp;|&nbsp;<a href="addpaper">addpaper</a>&nbsp;|&nbsp;<a href="test">test</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login|logout
+<hr>
+<div id="content">{% block content %}{% endblock %}</div>
+</body>
+</html>
