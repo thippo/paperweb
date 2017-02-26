@@ -1,32 +1,37 @@
+# -*- coding:utf-8 -*- 
+
 import pymongo
 from pymongo import MongoClient
 from bson import ObjectId
 from utils import *
 
 client = MongoClient('mongodb://localhost:27017/')
-db = client['thippo']
-collection = db['papers']
 
-def insert_db(content):
-    collection.insert_one(content)
+def _get_collection(username):
+    db = client[username]
+    collection = db['papers']
+    return collection
 
-def get_paper(_id):
-    a = collection.find_one({'_id':ObjectId(_id)})
+def insert_db(username, content):
+    _get_collection(username).insert_one(content)
+
+def get_paper(username, _id):
+    a = _get_collection(username).find_one({'_id':ObjectId(_id)})
     return str(a)
 
-def get_titles():
-    a = list(collection.find({}, {'title':1}).limit(10))
+def get_titles(username):
+    a = list(_get_collection(username).find({}, {'title':1}).limit(10))
     return a
 
-def get_tag_papers(tag_list):
-    a = list(collection.find({'tags':{"$in":tag_list}}, {'title':1}))
+def get_tag_papers(username, tag_list):
+    a = list(_get_collection(username).find({'tags':{"$in":tag_list}}, {'title':1}))
     return str(a)
 
-def get_sorted_tags():
-    a = [y for x in collection.find({}, {'tags':1, '_id':0}) for y in x['tags']]
+def get_sorted_tags(username):
+    a = [y for x in _get_collection(username).find({}, {'tags':1, '_id':0}) for y in x['tags']]
     a = sort_tags(a)
     return a
 
-def get_all():
-    a = collection.find_one()
+def get_all(username):
+    a = _get_collection(username).find_one()
     return str(a)

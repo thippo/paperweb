@@ -1,0 +1,12 @@
+<html>
+<body>
+<form action="/" method="post">
+{{ form.username() }}
+<br>
+{{ form.password() }}
+<br>
+{{ form.submit }}
+</form>
+<p>{{get_flashed_messages()[0]}}</p>
+</body>
+</html>

@@ -10,5 +10,21 @@
 {% for i in titles %}
 <p><a href='/paper/{{i['_id']}}'>{{i['title']}}</a></p>
 {% endfor %}
+<button type="button">切换</button>
+<div id='dbsubmit'>
+<form method="POST" target=_blank action="/show">
+{{ form.bibtex(cols=15, rows=25) }}
+{{ form.tags(size=10) }}
+{{ form.description(cols=25, rows=20) }}
+{{ form.submit }}
+</div>
+</form>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+  $("#dbsubmit").toggle(1000);
+  });
+});
+</script>
 {% endblock %}
 

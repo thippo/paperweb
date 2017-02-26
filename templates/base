@@ -1,9 +1,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
 <body>
->>>   <a href="/home">home</a>&nbsp;|&nbsp;<a href="addpaper">addpaper</a>&nbsp;|&nbsp;<a href="test">test</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login|logout
+>>>   <a href="/home">首页</a>&nbsp;|&nbsp;<a href="test">test</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎{{username}}！<a href='/logout'>退出</a>
 <hr>
 <div id="content">{% block content %}{% endblock %}</div>
 </body>
