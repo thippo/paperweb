@@ -1,0 +1,10 @@
+{% extends "base" %}
+{% block content %}
+<form action="/show" method="post">
+{% for i,j in sorted_tags.items() %}
+<input name="s_option" value="{{i}}" type="checkbox">{{i}}({{j}})
+<br>
+{% endfor %}
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}

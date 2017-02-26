@@ -2,6 +2,9 @@
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<style type="text/css">
+#dbsubmit {display:none;}
+</style>
 </head>
 <body>
 >>>   <a href="/home">首页</a>&nbsp;|&nbsp;<a href="test">test</a>

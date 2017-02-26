@@ -1,28 +1,31 @@
 {% extends "base" %}
 {% block content %}
-<a href='#'>All:</a>
+<button type="button">添加文献</button>
 <br>
-<ul>
-{% for i,j in sorted_tags.items() %}
-<li><a href='/tags/{{i}}' target=_blank>{{i}}</a>({{j}})</li>
-{% endfor %}
-</ul>
-{% for i in titles %}
-<p><a href='/paper/{{i['_id']}}'>{{i['title']}}</a></p>
-{% endfor %}
-<button type="button">切换</button>
 <div id='dbsubmit'>
-<form method="POST" target=_blank action="/show">
+<form method="POST" action="/home">
 {{ form.bibtex(cols=15, rows=25) }}
 {{ form.tags(size=10) }}
 {{ form.description(cols=25, rows=20) }}
 {{ form.submit }}
-</div>
 </form>
+</div>
+<p>{{ get_flashed_messages()[0] }}</p>
+<form action="/tags" method="post">
+{% for i,j in sorted_tags.items() %}
+<input name="tags_list" value="{{i}}" type="checkbox">{{i}}({{j}})
+<br>
+{% endfor %}
+<input type="submit" value="查询" />
+</form>
+{% for i in titles %}
+<input name="paper_ids" value="{{i['_id']}}" type="checkbox"><a href='/paper/{{i['_id']}}'>{{i['title']}}</a>
+<br>
+{% endfor %}
 <script>
 $(document).ready(function(){
   $("button").click(function(){
-  $("#dbsubmit").toggle(1000);
+  $("#dbsubmit").toggle(500);
   });
 });
 </script>
