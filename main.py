@@ -39,7 +39,7 @@ def logout():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if 'username' in session:
-        form = BibtexForm(csrf_enabled=False)
+        #form = BibtexForm(csrf_enabled=False)
         #if form.validate_on_submit():
         if request.method == 'POST':
             try:
@@ -51,10 +51,10 @@ def home():
                 #lin['tags'] = list(set(form.tags.data.split(',')))
                 #lin['description'] = form.description.data
                 #insert_db(session['username'], lin)
-                flash("添加成功")
+                flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
             except:
-                flash("添加失败")
-        return render_template('home', form=form, sorted_tags=get_sorted_tags(session['username']), titles=get_titles(session['username']))
+                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
+        return render_template('home', sorted_tags=get_sorted_tags(session['username']), titles=get_titles(session['username']), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
 
@@ -73,8 +73,9 @@ def tags():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if 'username' in session:
-        tags = get_sorted_tags(session['username'])
-        return render_template('test', sorted_tags=tags)
+        ggl ='haha'
+        #return render_template('test')
+        return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)

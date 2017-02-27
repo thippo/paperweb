@@ -1,15 +1,95 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>还没起名字</title>
+<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<style type="text/css">
-#dbsubmit {display:none;}
-</style>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
->>>   <a href="/home">首页</a>&nbsp;|&nbsp;<a href="test">test</a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎{{username}}！<a href='/logout'>退出</a>
-<hr>
-<div id="content">{% block content %}{% endblock %}</div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation"> 
+    <div class="container-fluid"> 
+        <div class="navbar-header"> 
+            <a class="navbar-brand" href="/index">还没起名字</a> 
+        </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="{% block home_active %}{% endblock %}"><a href="/home">首页</a></li>
+            <li class="{% block one_active %}{% endblock %}"><a href="#">项目</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    项目
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">1</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+				<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> 添加文献</button> 
+			</li>
+			<li>
+				<form class="navbar-form navbar-right">
+					<div class="form-group">
+						<input type="text" class="form-control">
+					</div>
+						<button type="submit" class="btn btn-default  btn-sm"><span class="glyphicon glyphicon-search"></span> 查询</button>
+				</form>
+			</li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{username}}</a></li> 
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
+        </ul> 
+    </div> 
+</nav>
+
+{{ get_flashed_messages()[0] }}
+
+{% block content %}{% endblock %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加文献</h4>
+            </div>
+			<div class="modal-body">
+<form role="form"  method="POST" action="/home">
+  <div class="form-group">
+    <label for="name">请输入BibTex格式内容:</label>
+<textarea name="bibtex"  class="form-control" rows="10" cols="30" required placeholder='@article{lecun2015deep,
+  title={Deep learning},
+  author={LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  journal={Nature},
+  volume={521},
+  number={7553},
+  pages={436--444},
+  year={2015},
+  publisher={Nature Research}
+}
+'>
+</textarea>
+  </div>
+  <div class="form-group">
+    <label for="tags">标签:</label><br>
+    <input type="text" name="tags" required size=90>
+  </div>
+  <div class="form-group">
+    <label for="name">请输入文献描述（可选）:</label>
+<textarea name="description"  class="form-control" rows="5" cols="30">
+</textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary btn-block btn-lg">提交</button>
+</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 </body>
 </html>

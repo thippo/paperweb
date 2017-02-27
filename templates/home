@@ -1,33 +1,80 @@
 {% extends "base" %}
-{% block content %}
-<button type="button">添加文献</button>
-<br>
-<div id='dbsubmit'>
-<form method="POST" action="/home">
-{{ form.bibtex(cols=15, rows=25) }}
-{{ form.tags(size=10) }}
-{{ form.description(cols=25, rows=20) }}
-{{ form.submit }}
-</form>
-</div>
-<p>{{ get_flashed_messages()[0] }}</p>
-<form action="/tags" method="post">
-{% for i,j in sorted_tags.items() %}
-<input name="tags_list" value="{{i}}" type="checkbox">{{i}}({{j}})
-<br>
-{% endfor %}
-<input type="submit" value="查询" />
-</form>
-{% for i in titles %}
-<input name="paper_ids" value="{{i['_id']}}" type="checkbox"><a href='/paper/{{i['_id']}}'>{{i['title']}}</a>
-<br>
-{% endfor %}
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-  $("#dbsubmit").toggle(500);
-  });
-});
-</script>
+
+{% block home_active %}
+{{ navbar[0] }}
 {% endblock %}
 
+{% block one_active %}
+{{ navbar[1] }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container pull-left" style="margin-top:-10px;">
+   <div class="row">
+   <div class="col-xs-2">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">标签</h3>
+    </div>
+    <div class="panel-body">
+<form action="/tags" method="post">
+<ul class="nav nav-pills nav-stacked">
+{% for i,j in sorted_tags.items() %}
+	<li>
+		<a href="#">
+			<input name="tags_list" value="{{i}}" type="checkbox"><span class="badge pull-right">{{ j }}</span> {{ i }}
+		</a>
+	</li>
+{% endfor %}
+</ul>
+<input class="btn btn-default pull-right" type="submit" value="多选查询" />
+</form>
+</div>
+</div>
+   </div>
+   <div class="col-xs-10">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">文献</h3>
+    </div>
+    <div class="panel-body">
+<div class="panel-group" id="accordion">
+{% for i in range(titles|length) %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapse{{ i }}">
+					{{ titles[i]['title'] }}
+				</a>
+			</h4>
+		</div>
+		<div id="collapse{{ i }}" class="panel-collapse collapse in">
+			<div class="panel-body">
+				{{ titles[i]['_id'] }}
+			</div>
+		</div>
+	</div>
+{% endfor %}
+</div>
+<ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+	<li><a href="#">6</a></li>
+    <li><a href="#">7</a></li>
+    <li><a href="#">8</a></li>
+    <li><a href="#">&raquo;</a></li>
+</ul>
+</div>
+</div>
+   </div>
+   </div>
+</div>
+
+{% endblock %}
