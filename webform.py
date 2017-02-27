@@ -15,5 +15,5 @@ class BibtexForm(Form):
     description = TextAreaField(validators=[])
     submit = SubmitField("Send")
 
-class duoxuan(Form):
-    tags = SelectMultipleField("tags")
+class CSRFForm(Form):
+    pass

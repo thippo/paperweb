@@ -20,6 +20,7 @@
     </div>
     <div class="panel-body">
 <form action="/tags" method="post">
+{{ csrfform.hidden_tag() }}
 <ul class="nav nav-pills nav-stacked">
 {% for i,j in sorted_tags.items() %}
 	<li>
@@ -53,7 +54,13 @@
 		</div>
 		<div id="collapse{{ i }}" class="panel-collapse collapse in">
 			<div class="panel-body">
-				{{ titles[i]['_id'] }}
+				{{ titles[i]['description'] }}
+        <a href="#" class="btn btn-warning btn-xs">
+          <span class="glyphicon glyphicon-pencil"></span> 修改
+        </a>
+        <a href="/delete_paper/{{ titles[i]['_id'] }}" class="btn btn-danger btn-xs">
+          <span class="glyphicon glyphicon-trash"></span> 删除
+        </a>
 			</div>
 		</div>
 	</div>
@@ -66,7 +73,7 @@
     <li><a href="#">3</a></li>
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
-	<li><a href="#">6</a></li>
+    <li><a href="#">6</a></li>
     <li><a href="#">7</a></li>
     <li><a href="#">8</a></li>
     <li><a href="#">&raquo;</a></li>

@@ -20,7 +20,7 @@ def get_paper(username, _id):
     return str(a)
 
 def get_titles(username):
-    a = list(_get_collection(username).find({}, {'title':1}).limit(10))
+    a = list(_get_collection(username).find({}, {'title':1, 'description':1}).limit(10))
     return a
 
 def get_tag_papers(username, tag_list):
@@ -31,6 +31,9 @@ def get_sorted_tags(username):
     a = [y for x in _get_collection(username).find({}, {'tags':1, '_id':0}) for y in x['tags']]
     a = sort_tags(a)
     return a
+
+def remove_paper(username, _id):
+    return _get_collection(username).remove({"_id":ObjectId( _id)})
 
 def get_all(username):
     a = _get_collection(username).find_one()

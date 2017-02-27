@@ -17,8 +17,9 @@ def before_web():
         return dict(username='nologin')
 
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    #form = LoginForm(csrf_enabled=False)
+    csrfform = CSRFForm()
     if 'username' in session:
         return redirect(url_for("home"))
     if request.method == 'POST':
@@ -27,18 +28,20 @@ def index():
             return redirect(url_for('home'))
         else:
             flash("用户名或密码错误")
-    form = LoginForm(csrf_enabled=False)
-    return render_template('index', form=form)
+    form = LoginForm()
+    return render_template('index', csrfform=csrfform, form=form)
 
 @app.route('/logout')
 def logout():
     if 'username' in session:
+        csrfform = CSRFForm()
         session.pop('username', None)
         return redirect(url_for("index"))
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if 'username' in session:
+        csrfform = CSRFForm()
         #form = BibtexForm(csrf_enabled=False)
         #if form.validate_on_submit():
         if request.method == 'POST':
@@ -54,7 +57,7 @@ def home():
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
             except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
-        return render_template('home', sorted_tags=get_sorted_tags(session['username']), titles=get_titles(session['username']), navbar=['active', ''])
+        return render_template('home', csrfform=csrfform, sorted_tags=get_sorted_tags(session['username']), titles=get_titles(session['username']), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
 
@@ -63,6 +66,19 @@ def paper(_id):
     if 'username' in session:
         return get_paper(session['username'], _id)
         #return chaxun()
+
+@app.route('/delete_paper/<_id>', methods=['GET', 'POST'])
+def delete_paper(_id):
+    if 'username' in session:
+        csrfform = CSRFForm()
+        try:
+            remove_paper(session['username'], _id)
+            flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>删除成功</strong></div>''')
+        except:
+            flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>删除失败</strong></div>''')
+        return redirect(url_for('home'))
+    else:
+        return redirect(url_for("index"))
 
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
