@@ -90,5 +90,10 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 </div>
+
+<script>
+	$(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
+
 </body>
 </html>

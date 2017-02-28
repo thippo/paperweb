@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*- 
 
-from flask import Flask, request, session, g, flash, render_template, redirect, url_for
+from flask import Flask, request, session, g, make_response, flash, render_template, redirect, url_for
 from webform import *
 from webdb import *
 
@@ -64,8 +64,9 @@ def paper(_id):
         return get_paper(session['username'], _id)
         #return chaxun()
 
-@app.route('/delete_paper/<tag_now>/<_id>', methods=['GET', 'POST'])
-def delete_paper(tag_now,_id):
+@app.route('/delete_paper/<_id>/', methods=['GET', 'POST'])
+@app.route('/delete_paper/<_id>/<tag_now>', methods=['GET', 'POST'])
+def delete_paper(_id, tag_now=''):
     if 'username' in session:
         try:
             remove_paper(session['username'], _id)
@@ -76,9 +77,15 @@ def delete_paper(tag_now,_id):
     else:
         return redirect(url_for("index"))
 
-@app.route('/tags', methods=['GET', 'POST'])
-def tags():
-    return str(request.form.getlist('tags_list'))
+@app.route('/downloadbibtex/<_id>')
+def downloadbibtex(_id):
+    if 'username' in session:
+        content = get_bibtex(session['username'], _id)['bibtex']
+        response = make_response(content)
+        response.headers["Content-Disposition"] = "attachment; filename=scholar.bib"
+        return response
+    else:
+        return redirect(url_for("index"))
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():

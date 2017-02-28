@@ -34,6 +34,6 @@ def get_sorted_tags(username):
 def remove_paper(username, _id):
     return _get_collection(username).remove({"_id":ObjectId( _id)})
 
-def get_all(username):
-    a = _get_collection(username).find_one()
-    return str(a)
+def get_bibtex(username, _id):
+    a = _get_collection(username).find_one({'_id':ObjectId(_id)}, {'bibtex':1})
+    return a
