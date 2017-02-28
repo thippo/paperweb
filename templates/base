@@ -35,7 +35,7 @@
 			</li>
 			<li>
 				<form class="navbar-form navbar-right">
-                                {{ csrfform.hidden_tag() }}
+                                {{ bibtexform.hidden_tag() }}
 					<div class="form-group">
 						<input type="text" class="form-control">
 					</div>
@@ -60,11 +60,11 @@
                 <h4 class="modal-title" id="myModalLabel">添加文献</h4>
             </div>
 			<div class="modal-body">
-<form role="form"  method="POST" action="/home">
-{{ csrfform.hidden_tag() }}
+<form role="form"  method="POST" action="/home/">
+{{ bibtexform.hidden_tag() }}
   <div class="form-group">
     <label for="name">请输入BibTex格式内容:</label>
-<textarea name="bibtex"  class="form-control" rows="10" cols="30" required placeholder='@article{lecun2015deep,
+{{ bibtexform.bibtex(required='', class="form-control", rows="10", cols="30", placeholder='''@article{lecun2015deep,
   title={Deep learning},
   author={LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
   journal={Nature},
@@ -73,21 +73,18 @@
   pages={436--444},
   year={2015},
   publisher={Nature Research}
-}
-'>
-</textarea>
+}''') }}
   </div>
   <div class="form-group">
     <label for="tags">标签:</label><br>
-    <input type="text" name="tags" required size=85>
+{{ bibtexform.tags(required='', size=88) }}
   </div>
   <div class="form-group">
     <label for="name">请输入文献描述（可选）:</label>
-<textarea name="description"  class="form-control" rows="5" cols="30">
-</textarea>
+{{ bibtexform.description(class="form-control", rows="5", cols="30") }}
   </div>
   <br>
-  <button type="submit" class="btn btn-primary btn-block btn-lg">提交</button>
+{{ bibtexform.submit(class="btn btn-primary btn-block btn-lg") }}
 </form>
 			</div>
 		</div><!-- /.modal-content -->

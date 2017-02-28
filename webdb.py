@@ -19,13 +19,12 @@ def get_paper(username, _id):
     a = _get_collection(username).find_one({'_id':ObjectId(_id)})
     return str(a)
 
-def get_titles(username):
-    a = list(_get_collection(username).find({}, {'title':1, 'description':1}).limit(10))
+def get_tag_papers(username, tag):
+    if tag:
+        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}))
+    else:
+        a = list(_get_collection(username).find().limit(5))
     return a
-
-def get_tag_papers(username, tag_list):
-    a = list(_get_collection(username).find({'tags':{"$in":tag_list}}, {'title':1}))
-    return str(a)
 
 def get_sorted_tags(username):
     a = [y for x in _get_collection(username).find({}, {'tags':1, '_id':0}) for y in x['tags']]
