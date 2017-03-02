@@ -1,0 +1,11 @@
+bibtexparser==0.6.2
+click==6.7
+Flask==0.12
+Flask-WTF==0.14.2
+itsdangerous==0.24
+Jinja2==2.9.5
+MarkupSafe==0.23
+pymongo==3.4.0
+uWSGI==2.0.14
+Werkzeug==0.11.15
+WTForms==2.1

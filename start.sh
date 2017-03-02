@@ -1,3 +1,3 @@
 nohup uwsgi --ini /root/web/uwsgi_config.ini  &
-/opt/nginx/sbin/nginx
+/usr/local/nginx/sbin/nginx
 #service iptables stop
