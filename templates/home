@@ -61,6 +61,7 @@
 <blockquote>
 			<p class="text-primary">{{ paper_items[i]['description'] }}</p>
 </blockquote>
+{{ paper_items[i]['pdfweb'] }}
 	<br>
 <div class="pull-left">
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>

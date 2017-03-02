@@ -45,14 +45,20 @@ def home(tag_now=''):
     if 'username' in session:
         bibtexform = BibtexForm()
         if bibtexform.validate_on_submit():
-            try:
+            if 1:
+            #try:
                 lin = bibtexparser.loads(bibtexform.bibtex.data).entries[0]
                 lin['bibtex'] = bibtexform.bibtex.data
                 lin['tags'] = list(set(bibtexform.tags.data.split(',')))
                 lin['description'] = bibtexform.description.data
+                pdffile = bibtexform.pdfupload.data
+                if pdffile:
+                    pdffile.save('static/b.pdf')
+                lin['pdfweb'] = bibtexform.pdfweb.data
                 insert_db(session['username'], lin)
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
-            except:
+            else:
+            #except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
         return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_papers(session['username'], tag_now), navbar=['active', ''])
     else:
