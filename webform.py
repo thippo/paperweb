@@ -14,7 +14,7 @@ class BibtexForm(FlaskForm):
     tags = TextField(validators=[Required()])
     description = TextAreaField(validators=[])
     pdfupload = FileField()
-    pdfweb = TextField(validators=[URL()])
+    pdfweb = TextField(validators=[])
     submit = SubmitField("提交")
 
 class CSRFForm(FlaskForm):

@@ -4,7 +4,9 @@ from flask import Flask, request, session, g, make_response, flash, render_templ
 from webform import *
 from webdb import *
 
+import os
 import hashlib
+
 import bibtexparser
 
 app = Flask(__name__)
@@ -56,9 +58,12 @@ def home(tag_now=''):
                 pdfname = pdffile
                 if pdffile:
                     filemd5name = hashlib.md5(pdfname).hexdigest()
-                    with open('static/papers/'+filemd5name+'.pdf', 'wb') as savepdf:
-                        savepdf.write(pdffile)
-                    lin['pdfupload'] = filemd5name
+                    if os.path.exists('static/papers/'+filemd5name+'.pdf'):
+                        lin['pdfupload'] = filemd5name
+                    else:
+                        with open('static/papers/'+filemd5name+'.pdf', 'wb') as savepdf:
+                            savepdf.write(pdffile)
+                            lin['pdfupload'] = filemd5name
                 lin['pdfweb'] = bibtexform.pdfweb.data
                 insert_db(session['username'], lin)
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
