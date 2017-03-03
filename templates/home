@@ -46,7 +46,7 @@
     </div>
     <div class="panel-body">
 <div class="panel-group" id="accordion">
-{% for i in range(paper_items|length) %}
+{% for i in range(paper_items|length-1, -1, -1) %}
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
@@ -61,7 +61,6 @@
 <blockquote>
 			<p class="text-primary">{{ paper_items[i]['description'] }}</p>
 </blockquote>
-<a href="/static/papers/{{  paper_items[i]['pdfupload'] }}.pdf" target=_blank>{{ paper_items[i]['pdfupload'] }}</a>
 	<br>
 <div class="pull-left">
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
