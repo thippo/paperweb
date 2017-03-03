@@ -13,7 +13,7 @@
 
 <div class="container pull-left" style="margin-top:-10px;">
    <div class="row">
-   <div class="col-xs-2">
+   <div class="col-xs-2 col-md-2">
 <div class="panel panel-info">
     <div class="panel-heading">
         <a href="/home/"><h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> 标签</a>
@@ -39,7 +39,7 @@
 </div>
 </div>
    </div>
-   <div class="col-xs-10">
+   <div class="col-xs-10 col-md-10">
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title"><span class="glyphicon glyphicon-th-list"></span> 文献 {{tag_now }}</h3>
@@ -61,7 +61,7 @@
 <blockquote>
 			<p class="text-primary">{{ paper_items[i]['description'] }}</p>
 </blockquote>
-{{ paper_items[i]['pdfweb'] }}
+<a href="/static/papers/{{  paper_items[i]['pdfupload'] }}.pdf" target=_blank>{{ paper_items[i]['pdfupload'] }}</a>
 	<br>
 <div class="pull-left">
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
