@@ -77,7 +77,7 @@ def home(tag_now=''):
 @app.route('/editpaper/<_id>', methods=['GET', 'POST'])
 def paper(_id):
     if 'username' in session:
-        paper_dict = get_paper(session['username'], _id)
+        paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
         editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'])
         return render_template('editpaper', editform=editform, paper_dict=paper_dict)
     else:
