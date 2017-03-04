@@ -17,5 +17,12 @@ class BibtexForm(FlaskForm):
     pdfweb = TextField(validators=[])
     submit = SubmitField("提交")
 
+class EditForm(FlaskForm):
+    tags = TextField(validators=[Required()])
+    description = TextAreaField(validators=[])
+    pdfupload = FileField()
+    pdfweb = TextField(validators=[])
+    submit = SubmitField("提交")
+
 class CSRFForm(FlaskForm):
     pass

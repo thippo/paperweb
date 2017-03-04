@@ -1,12 +1,61 @@
 {% extends "base" %}
+
+{% block home_active %}
+{% endblock %}
+
+{% block one_active %}
+{% endblock %}
+
+
 {% block content %}
-<form method="POST" target=_blank action="/show">
-{{ form.bibtex(cols=20, rows=25) }}
+
+<div class="container">
+<div class="row">
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title"><strong>{{ paper_dict['title'] }}</strong></h3>
+	</div>
+	<div class="panel-body">
+
+<ul id="myTab" class="nav nav-tabs">
+	<li class="active"><a href="#home" data-toggle="tab">菜鸟教程</a></li>
+	<li><a href="#ios" data-toggle="tab">iOS</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade in active" id="home">
+		<p class="text-center text-success">菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
+	</div>
+	<div class="tab-pane fade" id="ios">
+		<p class="text-center text-success">iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple 
+			TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+	</div>
+</div>
+
 <br>
-{{ form.tags(size=10) }}
+
+<form>
+{{ editform.hidden_tag() }}
+{{ editform.description(id="wedt", style="height:300px") }}
 <br>
-{{ form.description(cols=25, rows=25) }}
+
+{{ editform.tags(class="tags") }}
 <br>
-{{ form.submit }}
+<div class="pull-right">
+{{ editform.submit(class="btn btn-primary") }}
+<button type="button" class="btn btn-danger">取消</button>
+</div>
 </form>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    var editoredit = new wangEditor('wedt');
+    editoredit.create();
+</script>
+
 {% endblock %}

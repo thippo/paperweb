@@ -17,7 +17,7 @@ def insert_db(username, content):
 
 def get_paper(username, _id):
     a = _get_collection(username).find_one({'_id':ObjectId(_id)})
-    return str(a)
+    return a
 
 def get_tag_papers(username, tag):
     if tag:

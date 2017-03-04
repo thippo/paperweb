@@ -48,8 +48,8 @@ def home(tag_now=''):
     if 'username' in session:
         bibtexform = BibtexForm()
         if bibtexform.validate_on_submit():
-            if 1:
-            #try:
+            #if 1:
+            try:
                 lin = bibtexparser.loads(bibtexform.bibtex.data).entries[0]
                 lin['bibtex'] = bibtexform.bibtex.data
                 lin['tags'] = list(set(bibtexform.tags.data.split(',')))
@@ -67,18 +67,21 @@ def home(tag_now=''):
                 lin['pdfweb'] = bibtexform.pdfweb.data
                 insert_db(session['username'], lin)
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
-            else:
-            #except:
+            #else:
+            except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
         return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_papers(session['username'], tag_now), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
 
-@app.route('/paper/<_id>', methods=['GET', 'POST'])
+@app.route('/editpaper/<_id>', methods=['GET', 'POST'])
 def paper(_id):
     if 'username' in session:
-        return get_paper(session['username'], _id)
-        #return chaxun()
+        paper_dict = get_paper(session['username'], _id)
+        editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'])
+        return render_template('editpaper', editform=editform, paper_dict=paper_dict)
+    else:
+        return redirect(url_for("index"))
 
 @app.route('/delete_paper/<_id>/', methods=['GET', 'POST'])
 @app.route('/delete_paper/<_id>/<tag_now>', methods=['GET', 'POST'])

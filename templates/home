@@ -66,7 +66,7 @@
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
 </div>
 <div class="pull-right">
-        <a href="#" data-toggle="tooltip" title="编辑文献" class="text-success">
+        <a href="/editpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-success">
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
 {% if paper_items[i]['pdfweb'] %}
