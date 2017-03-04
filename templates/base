@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="/static/dist/css/wangEditor.min.css">
 <script type="text/javascript" src="/static/dist/js/lib/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="/static/dist/js/wangEditor.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/tags/css/jquery.tagsinput.css" />
+<link rel="stylesheet" type="text/css" href="/static/tags/css/jquery-ui.css" />
+<script type="text/javascript" src="/static/tags/js/jquery.tagsinput.js"></script>
+<script type='text/javascript' src="/static/tags/js/jquery-ui.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top" role="navigation"> 
@@ -80,7 +84,7 @@
   </div>
   <div class="form-group">
     <label for="tags">标签:</label><br>
-{{ bibtexform.tags(required='', size=60) }}
+{{ bibtexform.tags(required='', id="tags", class="tags", value="foo,bar,baz,roffle" ) }}
   </div>
   <div class="form-group">
     <label for="name">请输入文献描述（可选）:</label>
@@ -106,5 +110,24 @@
     var editor = new wangEditor('wangedt');
     editor.create();
 </script>
+
+<script type="text/javascript">
+	
+	function onAddTag(tag) {
+		alert("Added a tag: " + tag);
+	}
+	function onRemoveTag(tag) {
+		alert("Removed a tag: " + tag);
+	}
+	
+	function onChangeTag(input,tag) {
+		alert("Changed a tag: " + tag);
+	}
+	
+	$(function() {
+		$('#tags').tagsInput({width:'auto', height:'50px'});
+	});
+</script>
+
 </body>
 </html>
