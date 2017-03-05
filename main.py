@@ -48,8 +48,8 @@ def home(tag_now=''):
     if 'username' in session:
         bibtexform = BibtexForm()
         if bibtexform.validate_on_submit():
-            if 1:
-            #try:
+            #if 1:
+            try:
                 lin = bibtexparser.loads(bibtexform.bibtex.data).entries[0]
                 lin['bibtex'] = bibtexform.bibtex.data
                 lin['tags'] = list(set(bibtexform.tags.data.split(',')))
@@ -68,9 +68,10 @@ def home(tag_now=''):
                 lin['pdfweb'] = bibtexform.pdfweb.data
                 insert_db(session['username'], lin)
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
-            else:
-            #except:
+            #else:
+            except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
+            flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
         return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_papers(session['username'], tag_now), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
@@ -93,7 +94,9 @@ def updatepaper(_id):
                 update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','))
                 flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修改成功</strong></div>''')
             except:
-                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修改失败</strong></div>''')
+                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修i改失败</strong></div>''')
+        else:
+            flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
         return redirect(url_for('home'))
     else:
         return redirect(url_for("index"))
