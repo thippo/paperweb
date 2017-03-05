@@ -20,8 +20,8 @@ class BibtexForm(FlaskForm):
 class EditForm(FlaskForm):
     tags = TextField(validators=[Required()])
     description = TextAreaField(validators=[])
-    pdfupload = FileField()
-    pdfweb = TextField(validators=[])
+    #pdfupload = FileField()
+    #pdfweb = TextField(validators=[])
     submit = SubmitField("提交")
 
 class CSRFForm(FlaskForm):

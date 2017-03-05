@@ -41,7 +41,7 @@
 
 <br>
 
-<form>
+<form method="POST" action="/updatepaper/{{ paper_dict['_id'] }}">
 {{ editform.hidden_tag() }}
 {{ editform.description(id="wedt", style="height:300px") }}
 <br>

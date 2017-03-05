@@ -84,6 +84,20 @@ def paper(_id):
     else:
         return redirect(url_for("index"))
 
+@app.route('/updatepaper/<_id>', methods=['GET', 'POST'])
+def updatepaper(_id):
+    if 'username' in session:
+        editform = EditForm()
+        if editform.validate_on_submit():
+            try:
+                update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','))
+                flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修改成功</strong></div>''')
+            except:
+                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修改失败</strong></div>''')
+        return redirect(url_for('home'))
+    else:
+        return redirect(url_for("index"))
+
 @app.route('/delete_paper/<_id>/', methods=['GET', 'POST'])
 @app.route('/delete_paper/<_id>/<tag_now>', methods=['GET', 'POST'])
 def delete_paper(_id, tag_now=''):
