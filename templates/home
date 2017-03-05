@@ -84,7 +84,7 @@
           <span class="glyphicon glyphicon-save"></span>
         </a>
         <a href="/delete_paper/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">
-          <span class="glyphicon glyphicon-trash"></span>
+          <span class="glyphicon glyphicon-trash" Onclick="return confirm('请确认是否删除')"></span>
         </a>
 </div>
 			</div>
