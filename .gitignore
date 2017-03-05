@@ -2,4 +2,4 @@
 *~
 __pycache__/
 nohup.out
-static/papers/
+static/papers/*.pdf

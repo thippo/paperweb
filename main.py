@@ -2,7 +2,8 @@
 
 from flask import Flask, request, session, g, make_response, flash, render_template, redirect, url_for
 from webform import *
-from webdb import *
+from logindb import *
+from paperdb import *
 
 import os
 import hashlib
@@ -11,6 +12,10 @@ import bibtexparser
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='xxx'
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
 
 @app.context_processor
 def before_web():
