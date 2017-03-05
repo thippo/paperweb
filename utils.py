@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*- 
 
 import collections
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 def sort_tags(input_list):
     count_dict = collections.Counter(input_list)

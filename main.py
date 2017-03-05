@@ -23,17 +23,16 @@ def before_web():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    csrfform = CSRFForm()
     if 'username' in session:
         return redirect(url_for("home"))
-    if request.method == 'POST':
-        if request.form['username'] == 'thippo' and request.form['password'] == '123':
-            session['username'] = request.form['username']
+    form = LoginForm()
+    if form.validate_on_submit():
+        if confirm_user(form.username.data, form.password.data):
+            session['username'] = form.username.data
             return redirect(url_for('home'))
         else:
-            flash("用户名或密码错误")
-    form = LoginForm()
-    return render_template('index', csrfform=csrfform, form=form)
+            flash('<font color="red">用户名或密码错误</font>')
+    return render_template('index', form=form)
 
 @app.route('/logout')
 def logout():

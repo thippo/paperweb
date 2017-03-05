@@ -1,13 +1,81 @@
-<html>
-<body>
-<form action="/" method="post">
-{{ csrfform.hidden_tag() }}
-{{ form.username() }}
+﻿<html class="login-alone">
+    <head>
+        <title>还没起名字</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <link href="/static/login/ui/css/screen.css?v=3.9" media="screen, projection" rel="stylesheet" type="text/css" >
+        <link rel="stylesheet" type="text/css" href="/static/login/ui/css/base.css?v=3.9">
+        <link rel="stylesheet" type="text/css" href="/static/login//passport/css/login.css?v=3.9">
+        <!--[if lt IE 9]>
+        <script>
+        window.location="homepage/support";
+        </script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="logina-logo" style="height: 55px">
+            <a href="">
+                <img src="res/passport/images/toplogo1.png?v=3.9" height="60" alt="">
+            </a>
+        </div>
+        <div class="logina-main main clearfix">
+            <div class="tab-con">
+                <form id="form-login" method="post" action="index">
+{{ form.hidden_tag() }}
+                    <div id='login-error' class="error-tip"></div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th>账户</th>
+                                <td width="245">
+{{ form.username(autocomplete="off") }}
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>密码</th>
+                                <td width="245">
+{{ form.password(autocomplete="off") }}
+                                </td>
+<td>
+{{ get_flashed_messages()[0] }}
+</td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr id="tr-vcode" style="display:none;" >
+                                <td>
+                                </td>
+                            </tr>
+                            <tr class="find">
+                                <th></th>
+                                <td>
+                                    <div>
+                                        <label class="checkbox" for="chk11"><input style="height: auto;" id="chk11" type="checkbox" name="remember_me" >记住我</label>
+                                        <a href="passport/forget-pwd">忘记密码？</a>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th></th>
 <br>
-{{ form.password() }}
-<br>
-{{ form.submit }}
-</form>
-<p>{{get_flashed_messages()[0]}}</p>
-</body>
+                               <td>
+{{ form.submit(class="confirm") }}
+                               </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="reg">
+                <p>还没有账号？<br>赶快免费注册一个吧！</p>
+                <a class="reg-btn" href="#">立即免费注册</a>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="copyright">Copyright © thippo</div>
+{{ get_flashed_messages()[0] }}
+        </div>
+        <script src="res/passport/js/login.js?v=3.9"></script>       
+    </body>
 </html>

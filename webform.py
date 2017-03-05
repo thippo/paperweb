@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*- 
 
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, RadioField, IntegerField, SelectField, TextField, PasswordField, SubmitField, SelectMultipleField, BooleanField, FileField
+from wtforms import TextAreaField, RadioField, IntegerField, SelectField, TextField, PasswordField, SubmitField, SelectMultipleField, BooleanField, FileField, SelectField
 from wtforms.validators import DataRequired, Required, URL
 
 class LoginForm(FlaskForm):
     username = TextField(validators=[Required()])
     password = PasswordField(validators=[Required()])
-    submit = SubmitField("Send")
+    #remember = SelectField()
+    submit = SubmitField("登  录")
 
 class BibtexForm(FlaskForm):
     bibtex = TextAreaField(validators=[Required()])
