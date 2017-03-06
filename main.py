@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*- 
 
-from flask import Flask, request, session, g, make_response, flash, render_template, redirect, url_for
+from flask import Flask, request, session, g, make_response, flash, render_template, redirect, url_for, jsonify
 from webform import *
 from logindb import *
 from paperdb import *
+from jj2template import *
 
 import os
 from datetime import datetime
@@ -78,7 +79,9 @@ def home(tag_now=''):
             #except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
             flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
-        return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_papers(session['username'], tag_now), navbar=['active', ''])
+        all_papers_count = get_tag_papers_count(session['username'], tag_now)
+        totalPages = all_papers_count//5+(1 if all_papers_count%5 else 0)
+        return render_template('home', tag_now=tag_now, totalPages=totalPages, sorted_tags=get_sorted_tags(session['username']), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
 
@@ -134,6 +137,16 @@ def downloadbibtex(_id):
 def test():
     if 'username' in session:
         return render_template('test')
+
+#ajax
+
+@app.route('/ajaxtagpapers', methods=['POST'])
+def ajaxtagpapers():
+    if 'username' in session:
+        if request.method == 'POST':
+            paper_items = get_tag_pagination_papers(session['username'], request.form.get('tag', ''), request.form['pagenow'])
+            data = home_papers(paper_items)
+            return jsonify({'resultdata':data})
 
 if __name__ == '__main__':
     app.run(debug=True)

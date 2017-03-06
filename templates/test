@@ -1,17 +1,27 @@
 {% extends "base" %}
 {% block content %}
 
+<button type="button">Click Me!</button>
 <div id="page-content" class="">Page 1</div>
-
-<ul id="pagination-demo" class="pagination-sm"></ul>
+<form action="/ajaxtagpapers" method='post'>
+<input type="hidden" name="tag_now" value='sdf'>
+<input type="hidden" name="pagenow" value=2>
+<input type="submit" value="click" /> 
+</form>
+<div id='haha'></div>
 
 <script>
-    $('#pagination-demo').twbsPagination({
-        totalPages: 35,
-        visiblePages: 7,
-        onPageClick: function (event, page) {
-            $('#page-content').text('Page ' + page);
-        }
+$(document).ready(function(){
+  $("button").click(function(){
+    $.post("/ajaxtagpapers",
+    {
+      tag_now:'sdf',
+      page:1
+    },
+    function(data){
+      $('#haha').text(data);
     });
+  });
+});
 </script>
 {% endblock %}

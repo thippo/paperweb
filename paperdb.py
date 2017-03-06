@@ -19,18 +19,18 @@ def get_paper(username, _id):
     a = _get_collection(username).find_one({'_id':ObjectId(_id)})
     return a
 
-def get_tag_papers(username, tag):
+def get_tag_papers_count(username, tag):
     if tag:
-        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]))
+        a = _get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]).count()
     else:
-        a = list(_get_collection(username).find().sort([('date',-1)]))
+        a = _get_collection(username).find().sort([('date',-1)]).count()
     return a
 
-def get_tag_pagination_papers(username, tag, page=1):
+def get_tag_pagination_papers(username, tag, page):
     if tag:
-        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]))[(page-1)*10:page*10]
+        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]).skip((int(page)-1)*5).limit(5))
     else:
-        a = list(_get_collection(username).find().sort([('date',-1)]))[(page-1)*10:page*10]
+        a = list(_get_collection(username).find().sort([('date',-1)]).skip((int(page)-1)*5).limit(5))
     return a
 
 def get_sorted_tags(username):
