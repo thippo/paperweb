@@ -46,7 +46,7 @@
     </div>
     <div class="panel-body">
 <div class="panel-group" id="accordion">
-{% for i in range(paper_items|length-1, -1, -1) %}
+{% for i in range(paper_items|length) %}
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">

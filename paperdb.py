@@ -21,9 +21,16 @@ def get_paper(username, _id):
 
 def get_tag_papers(username, tag):
     if tag:
-        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}))
+        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]))
     else:
-        a = list(_get_collection(username).find().limit(5))
+        a = list(_get_collection(username).find().sort([('date',-1)]))
+    return a
+
+def get_tag_pagination_papers(username, tag, page=1):
+    if tag:
+        a = list(_get_collection(username).find({'tags':{"$in":[tag]}}).sort([('date',-1)]))[(page-1)*10:page*10]
+    else:
+        a = list(_get_collection(username).find().sort([('date',-1)]))[(page-1)*10:page*10]
     return a
 
 def get_sorted_tags(username):
