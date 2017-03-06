@@ -1,10 +1,17 @@
 {% extends "base" %}
 {% block content %}
-<form action="/show" method="post">
-{% for i,j in sorted_tags.items() %}
-<input name="s_option" value="{{i}}" type="checkbox">{{i}}({{j}})
-<br>
-{% endfor %}
-<input type="submit" value="Submit" />
-</form>
+
+<div id="page-content" class="">Page 1</div>
+
+<ul id="pagination-demo" class="pagination-sm"></ul>
+
+<script>
+    $('#pagination-demo').twbsPagination({
+        totalPages: 35,
+        visiblePages: 7,
+        onPageClick: function (event, page) {
+            $('#page-content').text('Page ' + page);
+        }
+    });
+</script>
 {% endblock %}

@@ -78,7 +78,7 @@ def home(tag_now=''):
             #except:
                 flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
             flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
-        return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_pagination_papers(session['username'], tag_now), navbar=['active', ''])
+        return render_template('home', tag_now=tag_now, sorted_tags=get_sorted_tags(session['username']), paper_items=get_tag_papers(session['username'], tag_now), navbar=['active', ''])
     else:
         return redirect(url_for("index"))
 
@@ -133,9 +133,7 @@ def downloadbibtex(_id):
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if 'username' in session:
-        ggl ='haha'
-        #return render_template('test')
-        return redirect(url_for('home'))
+        return render_template('test')
 
 if __name__ == '__main__':
     app.run(debug=True)
