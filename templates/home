@@ -57,7 +57,7 @@
 <script>
     $('#pagination-demo').twbsPagination({
         totalPages: {{ totalPages }},
-        visiblePages: 3,
+        visiblePages: 10,
         hideOnlyOnePage: true,
         first: '首页',
         prev: '上一页',

@@ -1,27 +1,22 @@
 {% extends "base" %}
 {% block content %}
+<div class="container" style="margin-top:-10px;">
+<div class="row">
+      <div class="panel panel-info">
+         <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> BibTex</a>
+            <a href="#">
+               <span class="glyphicon glyphicon-download-alt pull-right"></span>
+            </a>
+            </h3>
+         </div>
+         <div class="panel-body">
+        {{ a['bibtex'] }}
+         </div>
+      </div>
+   <div class="row">
 
-<button type="button">Click Me!</button>
-<div id="page-content" class="">Page 1</div>
-<form action="/ajaxtagpapers" method='post'>
-<input type="hidden" name="tag_now" value='sdf'>
-<input type="hidden" name="pagenow" value=2>
-<input type="submit" value="click" /> 
-</form>
-<div id='haha'></div>
-
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $.post("/ajaxtagpapers",
-    {
-      tag_now:'sdf',
-      page:1
-    },
-    function(data){
-      $('#haha').text(data);
-    });
-  });
-});
-</script>
+   </div>
+</div>
+</div>
 {% endblock %}

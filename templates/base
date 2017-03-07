@@ -22,6 +22,7 @@
 <body>
 <nav class="navbar navbar-default navbar-static-top" role="navigation"> 
     <div class="container-fluid"> 
+<div class="container">
         <div class="navbar-header"> 
             <a class="navbar-brand" href="/index">还没起名字</a> 
         </div>
@@ -59,6 +60,7 @@
             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
         </ul> 
     </div> 
+</div>
 </nav>
 
 {{ get_flashed_messages()[0] }}

@@ -110,9 +110,9 @@ def updatepaper(_id):
     else:
         return redirect(url_for("index"))
 
-@app.route('/delete_paper/<_id>/', methods=['GET', 'POST'])
-@app.route('/delete_paper/<_id>/<tag_now>', methods=['GET', 'POST'])
-def delete_paper(_id, tag_now=''):
+@app.route('/deletepaper/<_id>/', methods=['GET', 'POST'])
+@app.route('/deletepaper/<_id>/<tag_now>', methods=['GET', 'POST'])
+def deletepaper(_id, tag_now=''):
     if 'username' in session:
         try:
             remove_paper(session['username'], _id)
@@ -136,7 +136,8 @@ def downloadbibtex(_id):
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if 'username' in session:
-        return render_template('test')
+        a = getone(session['username'])
+        return render_template('test', a=a)
 
 #ajax
 

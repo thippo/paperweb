@@ -22,24 +22,30 @@ def home_papers(paper_items):
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
 </div>
 <div class="pull-right">
-        <a href="/editpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-success">
+        <a href="/showpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="文献详情" class="text-danger">
+          <span class="glyphicon glyphicon-file" ></span>
+        </a>
+        <a href="/editpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-primary">
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
 {% if paper_items[i]['pdfweb'] %}
-        <a href="{{  paper_items[i]['pdfweb'] }}" data-toggle="tooltip" title="PDF文件" class="text-primary" target=_blank>
-          <span class="glyphicon glyphicon-file"></span>
-        </a>
-{% elif paper_items[i]['pdfupload'] %}
-        <a href="/static/papers/{{  paper_items[i]['pdfupload'] }}.pdf" data-toggle="tooltip" title="PDF文件" class="text-primary" target=_blank>
-          <span class="glyphicon glyphicon-file"></span>
+        <a href="{{  paper_items[i]['pdfweb'] }}" data-toggle="tooltip" title="外部PDF文件" class="text-success" target=_blank>
+          <span class="glyphicon glyphicon-cloud"></span>
         </a>
 {% else %}
-          <span class="glyphicon glyphicon-file"></span>
+          <span class="glyphicon glyphicon-cloud"></span>
+{% endif %}
+{% if paper_items[i]['pdfupload'] %}
+        <a href="/static/papers/{{  paper_items[i]['pdfupload'] }}.pdf" data-toggl="tooltip" title="本地PDF文件" class="text-info" target=_blank>
+          <span class="glyphicon glyphicon-paperclip"></span>
+        </a>
+{% else %}
+          <span class="glyphicon glyphicon-paperclip"></span>
 {% endif %}
         <a href='/downloadbibtex/{{ paper_items[i]['_id'] }}' data-toggle="tooltip" title="下载BibTex文件" class="text-warning">
           <span class="glyphicon glyphicon-save"></span>
         </a>
-        <a href="/delete_paper/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">
+        <a href="/deletepaper/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">
           <span class="glyphicon glyphicon-trash" Onclick="return confirm('请确认是否删除')"></span>
         </a>
 </div>

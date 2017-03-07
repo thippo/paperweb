@@ -47,3 +47,6 @@ def remove_paper(username, _id):
 def get_bibtex(username, _id):
     a = _get_collection(username).find_one({'_id':ObjectId(_id)}, {'bibtex':1})
     return a
+
+def getone(username):
+    return _get_collection(username).find_one()
