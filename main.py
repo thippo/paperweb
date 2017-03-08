@@ -44,7 +44,6 @@ def index():
 @app.route('/logout')
 def logout():
     if 'username' in session:
-        csrfform = CSRFForm()
         session.pop('username', None)
         return redirect(url_for("index"))
 
@@ -62,15 +61,7 @@ def home(tag_now=''):
                 lin['description'] = bibtexform.description.data
                 pdffile = bibtexform.pdfupload.data
                 if pdffile:
-                    filemd5 = hashlib.md5()
-                    filemd5.update(pdffile.read())
-                    filemd5name = filemd5.hexdigest()
-                    if os.path.exists('static/papers/'+filemd5name+'.pdf'):
-                        lin['pdfupload'] = filemd5name
-                    else:
-                        pdffile.seek(0)
-                        pdffile.save('static/papers/'+filemd5name+'.pdf')
-                        lin['pdfupload'] = filemd5name
+                    lin['pdfupload'] = save_pdf_file(pdffile)
                 lin['pdfweb'] = bibtexform.pdfweb.data
                 lin['date'] = datetime.now()
                 insert_db(session['username'], lin)
