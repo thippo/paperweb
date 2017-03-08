@@ -32,15 +32,11 @@ def home_papers(paper_items):
         <a href="{{  paper_items[i]['pdfweb'] }}" data-toggle="tooltip" title="外部PDF文件" class="text-success" target=_blank>
           <span class="glyphicon glyphicon-cloud"></span>
         </a>
-{% else %}
-          <span class="glyphicon glyphicon-cloud"></span>
 {% endif %}
 {% if paper_items[i]['pdfupload'] %}
         <a href="/static/papers/{{  paper_items[i]['pdfupload'] }}.pdf" data-toggl="tooltip" title="本地PDF文件" class="text-info" target=_blank>
           <span class="glyphicon glyphicon-paperclip"></span>
         </a>
-{% else %}
-          <span class="glyphicon glyphicon-paperclip"></span>
 {% endif %}
         <a href='/downloadbibtex/{{ paper_items[i]['_id'] }}' data-toggle="tooltip" title="下载BibTex文件" class="text-warning">
           <span class="glyphicon glyphicon-save"></span>
