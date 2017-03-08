@@ -7,7 +7,7 @@ def home_papers(paper_items):
                 <div class="panel-heading">
                         <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i }}">
-                        &lt{{ paper_items[i]['ENTRYTYPE'] }}&gt<strong>{{ paper_items[i]['title'] }}</strong>
+                        &lt{{ paper_items[i]['ENTRYTYPE'] }}&gt<strong> {{ paper_items[i]['title'] }}</strong>
                                 </a>
                         </h4>
                 </div>
