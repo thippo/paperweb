@@ -28,8 +28,8 @@
         </div>
     <div>
         <ul class="nav navbar-nav">
-            <li class="{% block home_active %}{% endblock %}"><a href="/home">首页</a></li>
-            <li class="{% block one_active %}{% endblock %}"><a href="#">项目</a></li>
+            <li class="{% block papers_active %}{% endblock %}"><a href="/papers/{{ username }}">文献</a></li>
+            <li class="{% block one_active %}{% endblock %}"><a href="/test">测试</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     项目
@@ -75,7 +75,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加文献</h4>
             </div>
 			<div class="modal-body">
-<form role="form"  method="POST" action="/home/" enctype="multipart/form-data">
+<form role="form" method="post" action="/papers/{{ username }}/" enctype="multipart/form-data">
 {{ bibtexform.hidden_tag() }}
   <div class="form-group">
     <label for="name">请输入BibTex格式内容:</label>

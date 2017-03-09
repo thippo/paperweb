@@ -6,7 +6,7 @@ def alert_div(colour, message):
     template = Template('''<div class="alert alert-{{ colour }}" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>{{ message }}</strong></div>''')
     return template.render(colour=colour, message=message)
 
-def home_papers(paper_items):
+def jj2papers(who, paper_items):
     template = Template('''
 {% for i in range(paper_items|length) %}
         <div class="panel panel-default">
@@ -31,7 +31,7 @@ def home_papers(paper_items):
         <a href="/showpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="文献详情" class="text-danger">
           <span class="glyphicon glyphicon-file" ></span>
         </a>
-        <a href="/editpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-primary">
+        <a href="/editpaper/{{ who }}/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-primary">
           <span class="glyphicon glyphicon-pencil"></span>
         </a>
 {% if paper_items[i]['pdfweb'] %}
@@ -47,7 +47,7 @@ def home_papers(paper_items):
         <a href='/downloadbibtex/{{ paper_items[i]['_id'] }}' data-toggle="tooltip" title="下载BibTex文件" class="text-warning">
           <span class="glyphicon glyphicon-save"></span>
         </a>
-        <a href="/deletepaper/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">
+        <a href="/deletepaper/{{ who }}/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">
           <span class="glyphicon glyphicon-trash" Onclick="return confirm('请确认是否删除')"></span>
         </a>
 </div>
@@ -56,4 +56,4 @@ def home_papers(paper_items):
         </div>
 {% endfor %}
 ''')
-    return template.render(paper_items=paper_items)
+    return template.render(who=who, paper_items=paper_items)

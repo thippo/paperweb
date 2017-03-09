@@ -1,6 +1,6 @@
 {% extends "base" %}
 
-{% block home_active %}
+{% block papers_active %}
 {% endblock %}
 
 {% block one_active %}
@@ -41,7 +41,7 @@
 
 <br>
 
-<form method="POST" action="/updatepaper/{{ paper_dict['_id'] }}">
+<form method="POST" action="/updatepaper/{{ username }}/{{ paper_dict['_id'] }}">
 {{ editform.hidden_tag() }}
 {{ editform.description(id="wedt", style="height:300px") }}
 <br>
@@ -50,7 +50,7 @@
 <br>
 <div class="pull-right">
 {{ editform.submit(class="btn btn-primary", Onclick="return confirm('请确认是否提交修改')") }}
-<a href="/home" Onclick="return confirm('请确认是否提交放弃')")><button type="button" class="btn btn-danger">放弃</button></a>
+<a href="/papers/{{ username }}" Onclick="return confirm('请确认是否提交放弃')")><button type="button" class="btn btn-danger">放弃</button></a>
 </div>
 </form>
 
