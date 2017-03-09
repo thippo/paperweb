@@ -139,6 +139,9 @@ def test():
         a = getone(session['username'])
         return render_template('test', a=a)
 
+@app.route('/ha')
+def ha():
+    return render_template('ha')
 #ajax
 
 @app.route('/ajaxtagpapers', methods=['POST'])

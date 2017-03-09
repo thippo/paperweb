@@ -1,45 +1,111 @@
-{% extends "base" %}
-{% block content %}
-<div class="container" style="margin-top:-10px;">
-   <div class="row">
-      <div class="page-header">
-         <p><span class="glyphicon glyphicon-tags"></span>{% for i in paper_dict['tags'] %}&nbsp&nbsp{{ i }}{% endfor %}</p>
-         <h1><strong>{{ paper_dict['title'] }}</strong></h1>
-         <p class="text-success">{{ paper_dict['author'] }}</p>
-      </div>
-   </div>
-   <div class="row">
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> BibTex</h3>
-         </div>
-         <div class="panel-body" id='bibtex'>
-         {{ paper_dict['bibtex'] }}
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-edit"></span> 文献描述</h3>
-         </div>
-         <div class="panel-body" id='bibtex'>
-         {{ paper_dict['description'] }}
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-file"></span> PDF</a>
-            </h3>
-         </div>
-         <div class="panel-body">
-<embed id="pdfPlayer" src="{{ paper_dict['pdfweb'] }}" type="application/pdf" width="100%" height="60%" >
-         </div>
-      </div>
-   </div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{ paper_dict['title'] }}</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+/* Custom Styles */
+    ul.nav-tabs{
+        width: 140px;
+        margin-top: 20px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    }
+    ul.nav-tabs li{
+        margin: 0;
+        border-top: 1px solid #ddd;
+    }
+    ul.nav-tabs li:first-child{
+        border-top: none;
+    }
+    ul.nav-tabs li a{
+        margin: 0;
+        padding: 8px 16px;
+        border-radius: 0;
+    }
+    ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
+        color: #fff;
+        background: #0088cc;
+        border: 1px solid #0088cc;
+    }
+    ul.nav-tabs li:first-child a{
+        border-radius: 4px 4px 0 0;
+    }
+    ul.nav-tabs li:last-child a{
+        border-radius: 0 0 4px 4px;
+    }
+    ul.nav-tabs.affix{
+        top: 30px; /* Set the top position of pinned element */
+    }
+</style>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy">
+<nav class="navbar navbar-default navbar-static-top" role="navigation"> 
+    <div class="container-fluid"> 
+<div class="container">
+        <div class="navbar-header"> 
+            <a class="navbar-brand" href="/index">还没起名字</a> 
+        </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li><a href="/papers/{{ username }}">文献</a></li>
+            <li><a href="/test">测试</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    项目
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">1</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{username}}</a></li> 
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
+        </ul> 
+    </div> 
 </div>
-
-
-{% endblock %}
+</nav>
+<div class="container">
+   <div class="jumbotron">
+<p><span class="glyphicon glyphicon-tags"></span>{% for i in paper_dict['tags'] %}&nbsp&nbsp{{ i }}{% endfor %}</p>
+        <h2><strong>{{ paper_dict['title'] }}</strong></h2>
+<p class="text-success">{{ paper_dict['author'] }}</p>
+    </div>
+    <div class="row">
+        <div class="col-xs-3" id="myScrollspy">
+            <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+                <li class="active"><a href="#section-1">BibTex</a></li>
+                <li><a href="#section-2">描述</a></li>
+                <li><a href="#section-3">PDF</a></li>
+                <li><a href="#section-4">操作</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-9">
+            <h2 id="section-1">BibTex</h2>
+            <p>{{ paper_dict['bibtex'] }}</p>
+            <hr>
+            <h2 id="section-2">描述</h2>
+            {{ paper_dict['description'] }}
+            <hr>
+            <h2 id="section-3">PDF</h2>
+<embed id="pdfPlayer" src="{{ paper_dict['pdfweb'] }}" type="application/pdf" width="100%" height="800px" >
+            <hr>
+            <h2 id="section-4">操作</h2>
+<br>
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+</html>
