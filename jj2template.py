@@ -44,7 +44,7 @@ def jj2papers(who, paper_items):
           <span class="glyphicon glyphicon-paperclip"></span>
         </a>
 {% endif %}
-        <a href='/downloadbibtex/{{ paper_items[i]['_id'] }}' data-toggle="tooltip" title="下载BibTex文件" class="text-warning">
+        <a href='/downloadbibtex/{{ who }}/{{ paper_items[i]['_id'] }}' data-toggle="tooltip" title="下载BibTex文件" class="text-warning">
           <span class="glyphicon glyphicon-save"></span>
         </a>
         <a href="/deletepaper/{{ who }}/{{ paper_items[i]['_id'] }}/{{ tag_now }}" data-toggle="tooltip" title="删除文献" class="text-danger">

@@ -114,9 +114,9 @@ def deletepaper(who, _id, tag_now=''):
     else:
         return redirect(url_for("index"))
 
-@app.route('/downloadbibtex/<_id>')
-def downloadbibtex(_id):
-    if 'username' in session:
+@app.route('/downloadbibtex/<who>/<_id>')
+def downloadbibtex(who, _id):
+    if session['username'] == who:
         content = get_bibtex(session['username'], _id)['bibtex']
         response = make_response(content)
         response.headers["Content-Disposition"] = "attachment; filename=scholar.bib"
@@ -128,10 +128,8 @@ def downloadbibtex(_id):
 def test():
     if 'username' in session:
         bibtexform = BibtexForm()
-        if bibtexform.validate_on_submit():
-            return bibtexform.tags.data
-        #a = getone(session['username'])
-        #return render_template('test', a=a)
+        a = getone(session['username'])
+        return render_template('test', a=a)
 
 #ajax
 
