@@ -28,7 +28,7 @@ def jj2papers(who, paper_items):
 <p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
 </div>
 <div class="pull-right">
-        <a href="/showpaper/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="文献详情" class="text-danger">
+        <a href="/showpaper/{{ who }}/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="文献详情" class="text-danger" target=_blank>
           <span class="glyphicon glyphicon-file" ></span>
         </a>
         <a href="/editpaper/{{ who }}/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="编辑文献" class="text-primary">

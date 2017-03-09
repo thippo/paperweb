@@ -76,8 +76,16 @@ def papers(who, tag_now=''):
     else:
         return redirect(url_for("index"))
 
+@app.route('/showpaper/<who>/<_id>', methods=['GET', 'POST'])
+def showpaper(who, _id):
+    if session['username'] == who:
+        paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
+        return render_template('showpaper', paper_dict=paper_dict)
+    else:
+        return redirect(url_for("index"))
+
 @app.route('/editpaper/<who>/<_id>', methods=['GET', 'POST'])
-def paper(who, _id):
+def editpaper(who, _id):
     if session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
         editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'])
