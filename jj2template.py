@@ -1,4 +1,10 @@
+# -*- coding:utf-8 -*-
+
 from jinja2 import Template
+
+def alert_div(colour, message):
+    template = Template('''<div class="alert alert-{{ colour }}" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>{{ message }}</strong></div>''')
+    return template.render(colour=colour, message=message)
 
 def home_papers(paper_items):
     template = Template('''

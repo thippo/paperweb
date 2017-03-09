@@ -50,7 +50,7 @@ def logout():
 @app.route('/home/', methods=['GET', 'POST'])
 @app.route('/home/<tag_now>', methods=['GET', 'POST'])
 def home(tag_now=''):
-    if 'username' in session:
+    if session['username']:
         bibtexform = BibtexForm()
         if bibtexform.validate_on_submit():
             if 1:
@@ -65,11 +65,11 @@ def home(tag_now=''):
                 lin['pdfweb'] = bibtexform.pdfweb.data
                 lin['date'] = datetime.now()
                 insert_db(session['username'], lin)
-                flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加成功</strong></div>''')
+                flash(alert_div("success", "添加成功"))
             else:
             #except:
-                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>添加失败</strong></div>''')
-            flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
+                flash(alert_div("danger", "添加失败"))
+            flash(alert_div("warning", "填写有误"))
         all_papers_count = get_tag_papers_count(session['username'], tag_now)
         totalPages = all_papers_count//5+(1 if all_papers_count%5 else 0)
         return render_template('home', tag_now=tag_now, totalPages=totalPages, sorted_tags=get_sorted_tags(session['username']), navbar=['active', ''])
@@ -92,11 +92,11 @@ def updatepaper(_id):
         if editform.validate_on_submit():
             try:
                 update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','))
-                flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修改成功</strong></div>''')
+                flash(alert_div("success", "修改成功"))
             except:
-                flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>修i改失败</strong></div>''')
+                flash(alert_div("danger", "修改失败"))
         else:
-            flash('''<div class="alert alert-warning" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>填写有误</strong></div>''')
+            flash(alert_div("warning", "填写有误"))
         return redirect(url_for('home'))
     else:
         return redirect(url_for("index"))
@@ -107,9 +107,9 @@ def deletepaper(_id, tag_now=''):
     if 'username' in session:
         try:
             remove_paper(session['username'], _id)
-            flash('''<div class="alert alert-success" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>删除成功</strong></div>''')
+            flash(alert_div("success", "删除成功"))
         except:
-            flash('''<div class="alert alert-danger" style="margin-top:-15px;"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="text-center"><strong>删除失败</strong></div>''')
+            flash(alert_div("danger", "删除失败"))
         return redirect('/home/'+tag_now)
     else:
         return redirect(url_for("index"))
