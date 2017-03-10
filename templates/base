@@ -18,6 +18,10 @@
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="/static/pagination/jquery.twbsPagination.js" type="text/javascript"></script>
+
+<link href="/static/switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+<script src="/static/switch/js/bootstrap-switch.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top" role="navigation"> 
@@ -78,6 +82,10 @@
 <form role="form" method="post" action="/papers/{{ username }}/" enctype="multipart/form-data">
 {{ bibtexform.hidden_tag() }}
   <div class="form-group">
+<label for="name">设置文献权限(只有所有人可见才能分享):  </label><br>
+{{ bibtexform.secret(id="lockif", checked=true) }}
+  </div>
+  <div class="form-group">
     <label for="name">请输入BibTex格式内容:</label>
 {{ bibtexform.bibtex(required='', class="form-control", rows="10", cols="30", placeholder='''@article{lecun2015deep,
   title={Deep learning},
@@ -135,6 +143,16 @@
 	$(function() {
 		$('#tags').tagsInput({width:'auto', height:'50px'});
 	});
+</script>
+
+<script>
+$("#lockif").bootstrapSwitch.defaults.size = 'large';
+$("#lockif").bootstrapSwitch.defaults.handleWidth = 200;
+$("#lockif").bootstrapSwitch.defaults.onText = '仅 自 己 可 见';
+$("#lockif").bootstrapSwitch.defaults.offText = '所 有 人 可 见';
+$("#lockif").bootstrapSwitch.defaults.onColor = 'warning';
+$("#lockif").bootstrapSwitch.defaults.offColor = 'success';
+$("#lockif").bootstrapSwitch();
 </script>
 
 </body>

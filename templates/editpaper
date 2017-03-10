@@ -48,9 +48,18 @@
 
 {{ editform.tags(class="tags") }}
 <br>
+<div>
+<div class="pull-left">
+{% if paper_dict['secret'] %}
+{{ editform.secret(id="lockedit", checked='') }}
+{% else %}
+{{ editform.secret(id="lockedit") }}
+{% endif %}
+</div>
 <div class="pull-right">
 {{ editform.submit(class="btn btn-primary", Onclick="return confirm('请确认是否提交修改')") }}
 <a href="/papers/{{ username }}" Onclick="return confirm('请确认是否提交放弃')")><button type="button" class="btn btn-danger">放弃</button></a>
+</div>
 </div>
 </form>
 
@@ -64,6 +73,15 @@
         $(function () { $("[data-toggle='tooltip']").tooltip(); });
     var editoredit = new wangEditor('wedt');
     editoredit.create();
+</script>
+
+<script>
+$("#lockedit").bootstrapSwitch.defaults.handleWidth = 80;
+$("#lockedit").bootstrapSwitch.defaults.onText = '私密';
+$("#lockedit").bootstrapSwitch.defaults.offText = '公开';
+$("#lockedit").bootstrapSwitch.defaults.onColor = 'warning';
+$("#lockedit").bootstrapSwitch.defaults.offColor = 'success';
+$("#lockedit").bootstrapSwitch();
 </script>
 
 {% endblock %}

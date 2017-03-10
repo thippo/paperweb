@@ -56,6 +56,11 @@ def papers(who, tag_now=''):
             if 1:
             #try:
                 lin = bibtexparser.loads(bibtexform.bibtex.data).entries[0]
+                try:
+                    if bibtexform.secret.data:
+                        lin['secret'] = True
+                except:
+                    lin['secret'] = False
                 lin['bibtex'] = bibtexform.bibtex.data
                 lin['tags'] = list(set(bibtexform.tags.data.split(',')))
                 lin['description'] = bibtexform.description.data
@@ -98,9 +103,20 @@ def updatepaper(who, _id):
     if session['username'] == who:
         editform = EditForm()
         if editform.validate_on_submit():
+            #if 1:
             try:
-                update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','))
+                if editform.secret.data:
+                    secret = True
+                else:
+                    secret = False
+            #else:
+            except:
+                secret = False
+            try:
+            #if 1:
+                update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','), secret)
                 flash(alert_div("success", "修改成功"))
+            #else:
             except:
                 flash(alert_div("danger", "修改失败"))
         else:
@@ -134,14 +150,10 @@ def downloadbibtex(who, _id):
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    if 'username' in session:
-        bibtexform = BibtexForm()
-        a = getone(session['username'])
-        return render_template('test', a=a)
+    if request.method == 'POST':
+        return request.form.get('abc', 'no')
+    return render_template('test')
 
-@app.route('/ha')
-def ha():
-    return render_template('ha')
 #ajax
 
 @app.route('/ajaxtagpapers', methods=['POST'])

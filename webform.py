@@ -11,6 +11,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("登  录")
 
 class BibtexForm(FlaskForm):
+    secret = BooleanField()
     bibtex = TextAreaField(validators=[Required()])
     tags = TextField(validators=[Required()])
     description = TextAreaField(validators=[])
@@ -19,11 +20,10 @@ class BibtexForm(FlaskForm):
     submit = SubmitField("提交")
 
 class EditForm(FlaskForm):
+    secret = BooleanField()
     tags = TextField(validators=[Required()])
     description = TextAreaField(validators=[])
     #pdfupload = FileField()
     #pdfweb = TextField(validators=[])
     submit = SubmitField("提交")
 
-class CSRFForm(FlaskForm):
-    pass
