@@ -25,7 +25,7 @@ def before_web():
     try:
         return dict(username=session['username'], bibtexform=bibtexform)
     except:
-        return dict(username='nologin', bibtexform=bibtexform)
+        return dict(username='登录', bibtexform=bibtexform)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -50,7 +50,7 @@ def logout():
 @app.route('/papers/<who>/', methods=['GET', 'POST'])
 @app.route('/papers/<who>/<tag_now>', methods=['GET', 'POST'])
 def papers(who, tag_now=''):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         bibtexform = BibtexForm()
         if bibtexform.validate_on_submit():
             if 1:
@@ -58,9 +58,9 @@ def papers(who, tag_now=''):
                 lin = bibtexparser.loads(bibtexform.bibtex.data).entries[0]
                 try:
                     if bibtexform.secret.data:
-                        lin['secret'] = True
+                        lin['secret'] = False
                 except:
-                    lin['secret'] = False
+                    lin['secret'] = True
                 lin['bibtex'] = bibtexform.bibtex.data
                 lin['tags'] = list(set(bibtexform.tags.data.split(',')))
                 lin['description'] = bibtexform.description.data
@@ -83,15 +83,18 @@ def papers(who, tag_now=''):
 
 @app.route('/showpaper/<who>/<_id>', methods=['GET', 'POST'])
 def showpaper(who, _id):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
-        return render_template('showpaper', paper_dict=paper_dict)
+        return render_template('showpaper', paper_dict=paper_dict, me=True)
+    elif get_secret(who, _id):
+        paper_dict = collections.OrderedDict(get_paper(who, _id))
+        return render_template('showpaper', paper_dict=paper_dict, me=False)
     else:
-        return redirect(url_for("index"))
+        return 'no'
 
 @app.route('/editpaper/<who>/<_id>', methods=['GET', 'POST'])
 def editpaper(who, _id):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
         editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'])
         return render_template('editpaper', editform=editform, paper_dict=paper_dict)
@@ -100,18 +103,18 @@ def editpaper(who, _id):
 
 @app.route('/updatepaper/<who>/<_id>', methods=['GET', 'POST'])
 def updatepaper(who, _id):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         editform = EditForm()
         if editform.validate_on_submit():
             #if 1:
             try:
                 if editform.secret.data:
-                    secret = True
-                else:
                     secret = False
+                else:
+                    secret = True
             #else:
             except:
-                secret = False
+                secret = True
             try:
             #if 1:
                 update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','), secret)
@@ -121,14 +124,14 @@ def updatepaper(who, _id):
                 flash(alert_div("danger", "修改失败"))
         else:
             flash(alert_div("warning", "填写有误"))
-        return redirect(url_for('papers', who=session['username']))
+        return redirect('/showpaper/'+session['username']+'/'+_id)
     else:
         return redirect(url_for("index"))
 
 @app.route('/deletepaper/<who>/<_id>/', methods=['GET', 'POST'])
 @app.route('/deletepaper/<who>/<_id>/<tag_now>', methods=['GET', 'POST'])
 def deletepaper(who, _id, tag_now=''):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         try:
             remove_paper(session['username'], _id)
             flash(alert_div("success", "删除成功"))
@@ -140,7 +143,7 @@ def deletepaper(who, _id, tag_now=''):
 
 @app.route('/downloadbibtex/<who>/<_id>')
 def downloadbibtex(who, _id):
-    if session['username'] == who:
+    if 'username' in session and session['username'] == who:
         content = get_bibtex(session['username'], _id)['bibtex']
         response = make_response(content)
         response.headers["Content-Disposition"] = "attachment; filename=scholar.bib"
@@ -148,11 +151,9 @@ def downloadbibtex(who, _id):
     else:
         return redirect(url_for("index"))
 
-@app.route('/test', methods=['GET', 'POST'])
-def test():
-    if request.method == 'POST':
-        return request.form.get('abc', 'no')
-    return render_template('test')
+@app.route('/test/<who>/<_id>', methods=['GET', 'POST'])
+def test(who, _id):
+    return str(get_secret(who, _id))
 
 #ajax
 

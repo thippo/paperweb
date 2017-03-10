@@ -48,5 +48,15 @@ def get_bibtex(username, _id):
     a = _get_collection(username).find_one({'_id':ObjectId(_id)}, {'bibtex':1})
     return a
 
+def get_secret(username, _id):
+    try:
+        a = _get_collection(username).find_one({'_id':ObjectId(_id)}, {'secret':1})
+        if a:
+            return a['secret']
+        else:
+            return True
+    except:
+        return True
+
 def getone(username):
     return _get_collection(username).find_one()

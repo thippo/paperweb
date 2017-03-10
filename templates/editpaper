@@ -51,9 +51,9 @@
 <div>
 <div class="pull-left">
 {% if paper_dict['secret'] %}
-{{ editform.secret(id="lockedit", checked='') }}
-{% else %}
 {{ editform.secret(id="lockedit") }}
+{% else %}
+{{ editform.secret(id="lockedit", checked='') }}
 {% endif %}
 </div>
 <div class="pull-right">

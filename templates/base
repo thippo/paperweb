@@ -63,7 +63,6 @@
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{username}}</a></li> 
             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
         </ul> 
-    </div> 
 </div>
 </nav>
 
