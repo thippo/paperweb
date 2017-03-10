@@ -13,6 +13,11 @@ def jj2papers(who, paper_items):
                 <div class="panel-heading">
                         <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i }}">
+{% if paper_items[i].get('secret',False) %}
+<span class="glyphicon glyphicon-eye-open"></span>
+{% else %}
+<span class="glyphicon glyphicon-eye-close"></span>
+{% endif %}
                         &lt{{ paper_items[i]['ENTRYTYPE'] }}&gt<strong> {{ paper_items[i]['title'] }}</strong>
                                 </a>
                         </h4>
@@ -25,14 +30,9 @@ def jj2papers(who, paper_items):
 </blockquote>
         <br>
 <div class="pull-left">
-<p><span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span></p>
+<span class="glyphicon glyphicon-tag">{% for x in paper_items[i]['tags'] %} {{ x }}{% endfor %}</span>
 </div>
 <div class="pull-right">
-{% if paper_items[i].get('secret',False) %}
-<span class="glyphicon glyphicon-eye-open"></span>
-{% else %}
-<span class="glyphicon glyphicon-eye-close"></span>
-{% endif %}
         <a href="/showpaper/{{ who }}/{{ paper_items[i]['_id'] }}" data-toggle="tooltip" title="文献详情" class="text-danger" target=_blank>
           <span class="glyphicon glyphicon-file" ></span>
         </a>

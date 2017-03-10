@@ -97,7 +97,11 @@
             <textarea readonly="readonly" style="width:100%;height:150px;" class="well">{{ paper_dict['bibtex'] }}</textarea>
             <hr>
             <h2 id="section-3">PDF</h2>
+{% if paper_dict['pdfweb'] %}
 <embed id="pdfPlayer" src="{{ paper_dict['pdfweb'] }}" type="application/pdf" width="100%" height="800px" >
+{% else %}
+未添加PDF
+{% endif %}
             <hr>
             <h2 id="section-2">描述</h2>
             {{ paper_dict['description'] }}
@@ -106,7 +110,9 @@
 <br>
 <div>
 {% if me %}
+<a href="/editpaper/{{ username }}/{{ paper_dict['_id'] }}">
 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+</a>
 {% else %}
 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 导入</button>
 {% endif %}
