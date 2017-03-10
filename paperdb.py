@@ -58,5 +58,9 @@ def get_secret(username, _id):
     except:
         return True
 
-def getone(username):
-    return _get_collection(username).find_one()
+def update_secret(username, _id, secret):
+    try:
+        _get_collection(username).update({'_id':ObjectId(_id)}, {'$set':{'secret':secret}})
+        return True
+    except:
+        return False

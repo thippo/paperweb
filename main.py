@@ -25,7 +25,7 @@ def before_web():
     try:
         return dict(username=session['username'], bibtexform=bibtexform)
     except:
-        return dict(username='登录', bibtexform=bibtexform)
+        return dict(username='-', bibtexform=bibtexform)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -88,7 +88,7 @@ def showpaper(who, _id):
         return render_template('showpaper', paper_dict=paper_dict, me=True)
     elif get_secret(who, _id):
         paper_dict = collections.OrderedDict(get_paper(who, _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=False)
+        return render_template('showpaper', paper_dict=paper_dict, me=False, who=who)
     else:
         return 'no'
 
@@ -164,6 +164,28 @@ def ajaxtagpapers():
             paper_items = get_tag_pagination_papers(session['username'], request.form.get('tag', ''), request.form['pagenow'])
             data = jj2papers(session['username'], paper_items)
             return jsonify({'resultdata':data})
+
+@app.route('/ajaximport', methods=['POST'])
+def ajaximport():
+    if 'username' in session:
+        if request.method == 'POST':
+            try:
+                paper_dict = collections.OrderedDict(get_paper(request.form['from'], request.form['_id']))
+                paper_dict['date'] = datetime.now()
+                if paper_dict['secret']:
+                    insert_db(session['username'], paper_dict)
+                    return jsonify({'result':'ok'})
+            except:
+                pass
+            return jsonify({'result':'no'})
+
+@app.route('/ajaxsecret', methods=['POST'])
+def ajaxsecret():
+    if 'username' in session:
+        if request.method == 'POST':
+            if update_secret(session['username'], request.form['_id'], (True if request.form['secret']=='1' else False)):
+                return jsonify({'result':'ok'})
+        return jsonify({'result':'no'})
 
 if __name__ == '__main__':
     app.run(debug=True)
