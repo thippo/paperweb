@@ -69,7 +69,7 @@
     </div>
         <ul class="nav navbar-nav navbar-right">
           {% if username == '-' %}
-            <li><a href="/index">登录</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#LoginModal">登录</a></li>
           {% else %}
             <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ username }} <b class="caret"></b></a>
@@ -168,12 +168,48 @@ var jiathis_config={
             <h2 id="section-5">讨论</h2>
 <!-- UY BEGIN -->
 <div id="uyan_frame"></div>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2052645"></script>
 <!-- UY END -->
 </div>
         </div>
     </div>
 </div>
+
+{% if username == '-' %}
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">登录框</h4>
+            </div>
+            <div class="modal-body">
+<form  role="form" id="loginid" action="" method="POST" class="form-horizontal">
+{{ loginform.hidden_tag() }}
+<div class="form-group">
+<label class="col-sm-2 control-label">账户：</label>
+<div class="col-sm-10">
+{{ loginform.username(class="form-control", autocomplete="off") }}
+</div>
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label">密码：</label>
+<div class="col-sm-10">
+{{ loginform.password(class="form-control", autocomplete="off") }}
+</div>
+</div>
+</form>
+            </div>
+            <div class="modal-footer">
+<div>
+<p class="text-danger pull-left" id="errorid"></p>
+</div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="loginbutton">登录</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+{% endif %}
 
 <script>
 $('#importid').click(function(){
@@ -201,6 +237,25 @@ $('#jtshare').show(50);
 )};
 });
 </script>
+
+{% if username == '-' %}
+<script>
+ $("#loginbutton").click(function(){
+   $.post('/ajaxlogin', $('#loginid').serialize(), function(data){
+    if (data.resultstate == '1'){
+       location.reload();
+     }else{
+$('#errorid').html('<small>用户名或密码错误</small>')
+     }
+})
+  });
+
+$("body").keydown(function(){
+    if (event.keyCode == "13"){$('#loginbutton').click();}});    
+</script>
+{% endif %}
+
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2052645"></script>
 
 </body>
 </html>

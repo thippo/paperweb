@@ -20,21 +20,21 @@
         <div class="logina-main main clearfix">
             <div class="tab-con">
                 <form id="form-login" method="post" action="index">
-{{ form.hidden_tag() }}
+{{ loginform.hidden_tag() }}
                     <div id='login-error' class="error-tip"></div>
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
                                 <th>账户</th>
                                 <td width="245">
-{{ form.username(autocomplete="off") }}
+{{ loginform.username(autocomplete="off") }}
                                 <td>
                                 </td>
                             </tr>
                             <tr>
                                 <th>密码</th>
                                 <td width="245">
-{{ form.password(autocomplete="off") }}
+{{ loginform.password(autocomplete="off") }}
                                 </td>
 <td>
 {{ get_flashed_messages()[0] }}
@@ -60,7 +60,7 @@
                                 <th></th>
 <br>
                                <td>
-{{ form.submit(class="confirm") }}
+{{ loginform.submit(class="confirm") }}
                                </td>
                             </tr>
                         </tbody>

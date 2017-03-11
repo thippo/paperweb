@@ -32,14 +32,14 @@ def before_web():
 def index():
     if 'username' in session:
         return redirect(url_for('papers', who=session['username']))
-    form = LoginForm()
-    if form.validate_on_submit():
-        if confirm_user(form.username.data, form.password.data):
-            session['username'] = form.username.data
+    loginform = LoginForm()
+    if loginform.validate_on_submit():
+        if confirm_user(loginform.username.data, loginform.password.data):
+            session['username'] = loginform.username.data
             return redirect(url_for('papers', who=session['username']))
         else:
             flash('<font color="red">用户名或密码错误</font>')
-    return render_template('index', form=form)
+    return render_template('index', loginform=loginform)
 
 @app.route('/logout')
 def logout():
@@ -83,14 +83,15 @@ def papers(who, tag_now=''):
 
 @app.route('/showpaper/<who>/<_id>', methods=['GET', 'POST'])
 def showpaper(who, _id):
+    loginform = LoginForm()
     if 'username' in session and session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=True)
+        return render_template('showpaper', paper_dict=paper_dict, me=True, loginform=loginform)
     elif get_secret(who, _id):
         paper_dict = collections.OrderedDict(get_paper(who, _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=False, who=who)
+        return render_template('showpaper', paper_dict=paper_dict, me=False, who=who, loginform=loginform)
     else:
-        return render_template('nopaper', me=False)
+        return render_template('nopaper', me=False, loginform=loginform)
 
 @app.route('/editpaper/<who>/<_id>', methods=['GET', 'POST'])
 def editpaper(who, _id):
@@ -156,6 +157,17 @@ def test(who, _id):
     return str(get_secret(who, _id))
 
 #ajax
+
+@app.route('/ajaxlogin', methods=['POST'])
+def ajaxlogin():
+    loginform = LoginForm()
+    if loginform.validate_on_submit():
+        if confirm_user(loginform.username.data, loginform.password.data):
+            session['username'] = loginform.username.data
+            return jsonify({'resultstate':'1'})
+        else:
+            return jsonify({'resultstate':'0'})
+    return jsonify({'resultstate':'0'})
 
 @app.route('/ajaxtagpapers', methods=['POST'])
 def ajaxtagpapers():
