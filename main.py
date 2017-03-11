@@ -90,7 +90,7 @@ def showpaper(who, _id):
         paper_dict = collections.OrderedDict(get_paper(who, _id))
         return render_template('showpaper', paper_dict=paper_dict, me=False, who=who)
     else:
-        return 'no'
+        return render_template('nopaper', me=False)
 
 @app.route('/editpaper/<who>/<_id>', methods=['GET', 'POST'])
 def editpaper(who, _id):

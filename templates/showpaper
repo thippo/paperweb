@@ -68,8 +68,17 @@
         </ul>
     </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{username}}</a></li> 
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li> 
+          {% if username == '-' %}
+            <li><a href="/index">登录</a></li>
+          {% else %}
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ username }} <b class="caret"></b></a>
+         <ul class="dropdown-menu" style="min-width: 100px;">
+            <li class="pull-right"><a href="#"><span class="glyphicon glyphicon-cog"></span> 设置</a></li>
+            <li class="pull-right"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+         </ul>
+         </li>
+          {% endif %}
         </ul> 
     </div> 
 </div>
@@ -123,7 +132,7 @@
 <div class="pull-left">
 &nbsp&nbsp
 </div>
-<div class="pull-left">
+<div class="pull-right">
 <div id='bdshare' class="bdsharebuttonbox" {% if me %}style="display:none;"{% endif %}><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 <br>

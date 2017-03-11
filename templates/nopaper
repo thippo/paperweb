@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>页面不存在或文献为隐私状态</title>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy">
+<nav class="navbar navbar-default navbar-static-top" role="navigation"> 
+    <div class="container-fluid"> 
+<div class="container">
+        <div class="navbar-header"> 
+            <a class="navbar-brand" href="/index">还没起名字</a> 
+        </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li><a href="/papers/{{ username }}">文献</a></li>
+            <li><a href="/test">测试</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    项目
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">1</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">2</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        <ul class="nav navbar-nav navbar-right">
+          {% if username == '-' %}
+            <li><a href="/index">登录</a></li>
+          {% else %}
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ username }} <b class="caret"></b></a>
+         <ul class="dropdown-menu" style="min-width: 100px;">
+            <li class="pull-right"><a href="#"><span class="glyphicon glyphicon-cog"></span> 设置</a></li>
+            <li class="pull-right"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+         </ul>
+         </li>
+          {% endif %}
+        </ul> 
+    </div> 
+</div>
+</nav>
+
+<body>
+<div class="container">
+<div class="panel panel-danger">
+	<div class="panel-heading">
+		<h3 class="panel-title">页面不存在或文献为隐私状态！</h3>
+	</div>
+	<div class="panel-body">
+		这是一个基本的面板
+	</div>
+</div>
+</div>
+
+</body>
+</html>
