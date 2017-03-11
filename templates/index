@@ -74,7 +74,6 @@
         </div>
         <div id="footer">
             <div class="copyright">Copyright © thippo</div>
-{{ get_flashed_messages()[0] }}
         </div>
         <script src="res/passport/js/login.js?v=3.9"></script>       
     </body>
