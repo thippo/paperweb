@@ -188,13 +188,13 @@ var jiathis_config={
 <div class="form-group">
 <label class="col-sm-2 control-label">账户：</label>
 <div class="col-sm-10">
-{{ loginform.username(class="form-control", autocomplete="off") }}
+{{ loginform.username(id="usernameid", class="form-control", autocomplete="off") }}
 </div>
 </div>
 <div class="form-group">
 <label class="col-sm-2 control-label">密码：</label>
 <div class="col-sm-10">
-{{ loginform.password(class="form-control", autocomplete="off") }}
+{{ loginform.password(id="passwordid", class="form-control", autocomplete="off") }}
 </div>
 </div>
 </form>
@@ -250,7 +250,7 @@ $('#errorid').html('<small>用户名或密码错误</small>')
 })
   });
 
-$("body").keydown(function(){
+$("#usernameid,#passwordid").keydown(function(){
     if (event.keyCode == "13"){$('#loginbutton').click();}});    
 </script>
 {% endif %}
