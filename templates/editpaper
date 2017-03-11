@@ -41,13 +41,17 @@
 
 <br>
 
-<form method="POST" action="/updatepaper/{{ username }}/{{ paper_dict['_id'] }}">
+<form role="form" method="POST" action="/updatepaper/{{ username }}/{{ paper_dict['_id'] }}">
 {{ editform.hidden_tag() }}
+<div class="form-group">
 {{ editform.description(id="wedt", style="height:300px") }}
-<br>
-
+</div>
+<div class="form-group">
 {{ editform.tags(class="tags") }}
-<br>
+</div>
+<div class="form-group">
+外部PDF链接：{{ editform.pdfweb(class="form-control") }}
+</div>
 <div>
 <div class="pull-left">
 {% if paper_dict['secret'] %}

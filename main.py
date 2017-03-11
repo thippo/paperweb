@@ -96,7 +96,7 @@ def showpaper(who, _id):
 def editpaper(who, _id):
     if 'username' in session and session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
-        editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'])
+        editform = EditForm(tags=','.join(paper_dict['tags']), description=paper_dict['description'], pdfweb=paper_dict['pdfweb'])
         return render_template('editpaper', editform=editform, paper_dict=paper_dict)
     else:
         return redirect(url_for("index"))
@@ -106,21 +106,21 @@ def updatepaper(who, _id):
     if 'username' in session and session['username'] == who:
         editform = EditForm()
         if editform.validate_on_submit():
-            #if 1:
-            try:
+            if 1:
+            #try:
                 if editform.secret.data:
                     secret = False
                 else:
                     secret = True
-            #else:
-            except:
+            else:
+            #except:
                 secret = True
-            try:
-            #if 1:
-                update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','), secret)
+            #try:
+            if 1:
+                update_paper(session['username'], _id, editform.description.data, editform.tags.data.split(','), editform.pdfweb.data, secret)
                 flash(alert_div("success", "修改成功"))
-            #else:
-            except:
+            else:
+            #except:
                 flash(alert_div("danger", "修改失败"))
         else:
             flash(alert_div("warning", "填写有误"))

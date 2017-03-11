@@ -24,6 +24,6 @@ class EditForm(FlaskForm):
     tags = TextField(validators=[Required()])
     description = TextAreaField(validators=[])
     #pdfupload = FileField()
-    #pdfweb = TextField(validators=[])
+    pdfweb = TextField(validators=[])
     submit = SubmitField("提交")
 

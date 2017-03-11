@@ -38,8 +38,8 @@ def get_sorted_tags(username):
     a = sort_tags(a)
     return a
 
-def update_paper(username, _id, description, tags, secret):
-    return  _get_collection(username).update({'_id':ObjectId(_id)}, {'$set':{'description':description, 'tags':tags, 'secret':secret}})
+def update_paper(username, _id, description, tags, pdfweb, secret):
+    return  _get_collection(username).update({'_id':ObjectId(_id)}, {'$set':{'description':description, 'tags':tags, 'pdfweb':pdfweb, 'secret':secret}})
 
 def remove_paper(username, _id):
     return _get_collection(username).remove({"_id":ObjectId( _id)})
