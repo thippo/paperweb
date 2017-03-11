@@ -99,6 +99,7 @@
                 <li><a href="#section-2">PDF</a></li>
                 <li><a href="#section-3">描述</a></li>
                 <li><a href="#section-4">操作</a></li>
+                <li><a href="#section-5">讨论</a></li>
             </ul>
         </div>
         <div class="col-xs-9">
@@ -133,12 +134,42 @@
 &nbsp&nbsp
 </div>
 <div class="pull-right">
-<div id='bdshare' class="bdsharebuttonbox" {% if me %}style="display:none;"{% endif %}><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_24x24" id="jtshare" {% if me %}style="display:none;"{% endif %}>
+<a class="jiathis_button_copy"></a>
+<a class="jiathis_button_email"></a>
+<a class="jiathis_button_print"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_qzone"></a>
+<a class="jiathis_button_douban"></a>
+<a class="jiathis_button_ydnote"></a>
+<a href="http://www.jiathis.com/share?uid=2052645" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2052645" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
 <br>
 <br>
 </div>
 <br>
+<br>
+<br>
+<br>
+            <h2 id="section-5">讨论</h2>
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2052645"></script>
+<!-- UY END -->
 </div>
         </div>
     </div>
@@ -164,7 +195,7 @@ $('#shareid').click(function(){
 if (confirm('分享后文献将所有人可见！')){
 $.post("/ajaxsecret",{'username':'{{ username }}','_id':'{{ paper_dict['_id'] }}','secret':'1'},function(data){
 if (data.result == 'ok'){
-$('#bdshare').show(50);
+$('#jtshare').show(50);
 }
 }
 )};
