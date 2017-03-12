@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>{{ paper_dict['title'] }}</title>
 <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/static/like/like.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
@@ -100,6 +101,13 @@
                 <li><a href="#section-3">描述</a></li>
                 <li><a href="#section-4">操作</a></li>
                 <li><a href="#section-5">讨论</a></li>
+<li>
+<div class="praise">
+        <span id="praise"><img src="/static/like/zan.png" id="praise-img" /></span>
+        <span id="praise-txt">1455</span>
+        <span id="add-num"><em>+1</em></span>
+</div>
+</li>
             </ul>
         </div>
         <div class="col-xs-9">
@@ -118,6 +126,7 @@
             <hr>
             <h2 id="section-4">操作</h2>
 <div>
+</div>
 <div class="pull-left">
 {% if me %}
 <a href="/editpaper/{{ username }}/{{ paper_dict['_id'] }}">
@@ -129,9 +138,6 @@
 {% if me %}
 <button type="button" id='shareid' class="btn btn-default"><span class="glyphicon glyphicon-share"></span> 分享</button>
 {% endif %}
-</div>
-<div class="pull-left">
-&nbsp&nbsp
 </div>
 <div class="pull-right">
 <!-- JiaThis Button BEGIN -->
@@ -254,6 +260,33 @@ $("#usernameid,#passwordid").keydown(function(){
     if (event.keyCode == "13"){$('#loginbutton').click();}});    
 </script>
 {% endif %}
+
+<script>
+        $(function(){
+                $("#praise").click(function(){
+                        var praise_img = $("#praise-img");
+                        var text_box = $("#add-num");
+                        var praise_txt = $("#praise-txt");
+                        var num=parseInt(praise_txt.text());
+                        if(praise_img.attr("src") == ("/static/like/yizan.png")){
+                                $(this).html("<img src='/static/like/zan.png' id='praise-img' class='animation' />");
+                                praise_txt.removeClass("hover");
+                                text_box.show().html("<em class='add-animation'>-1</em>");
+                                $(".add-animation").removeClass("hover");
+                                num -=1;
+                                praise_txt.text(num)
+                        }else{
+                                $(this).html("<img src='/static/like/yizan.png' id='praise-img' class='animation' />");
+                                praise_txt.addClass("hover");
+                                text_box.show().html("<em class='add-animation'>+1</em>");
+                                $(".add-animation").addClass("hover");
+                                num +=1;
+                                praise_txt.text(num)
+                        }
+                });
+        })
+</script>
+
 
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2052645"></script>
 

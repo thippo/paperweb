@@ -3,6 +3,7 @@
 from flask import Flask, request, session, g, make_response, flash, render_template, redirect, url_for, jsonify
 from webform import *
 from logindb import *
+from redisdb import *
 from paperdb import *
 from jj2template import *
 
@@ -154,7 +155,7 @@ def downloadbibtex(who, _id):
 
 @app.route('/test/<who>/<_id>', methods=['GET', 'POST'])
 def test(who, _id):
-    return str(get_secret(who, _id))
+    return render_template('test', who=who, _id=_id)
 
 #ajax
 
