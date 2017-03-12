@@ -202,21 +202,21 @@ def ajaxsecret():
 
 @app.route('/ajaxlikeget', methods=['POST'])
 def ajaxlikeget():
-    return jsonify({'resultcount':like_get(request.form['who']+':'+request.form['_id']+':count')})
+    return jsonify({'resultcount':like_get(request.form['who']+':'+request.form['_id']+':likecount')})
 
 @app.route('/ajaxlikeoperate', methods=['POST'])
 def ajaxlikeoperate():
     if request.form['operate'] == '+':
         if 1:
         #try:
-            return jsonify({'resultcount':like_incr(request.form['who']+':'+request.form['_id']+':count')})
+            return jsonify({'resultcount':like_incr(request.form['who']+':'+request.form['_id']+':likecount')})
         else:
         #except:
             return jsonify({'resultcount':'no'})
     elif request.form['operate'] == '-':
         if 1:
         #try:
-            return jsonify({'resultcount':like_decr(request.form['who']+':'+request.form['_id']+':count')})
+            return jsonify({'resultcount':like_decr(request.form['who']+':'+request.form['_id']+':likecount')})
         else:
         #except:
             return jsonify({'resultcount':'no'})
