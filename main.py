@@ -87,7 +87,7 @@ def showpaper(who, _id):
     loginform = LoginForm()
     if 'username' in session and session['username'] == who:
         paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=True, loginform=loginform)
+        return render_template('showpaper', paper_dict=paper_dict, me=True, who=who, loginform=loginform)
     elif get_secret(who, _id):
         paper_dict = collections.OrderedDict(get_paper(who, _id))
         return render_template('showpaper', paper_dict=paper_dict, me=False, who=who, loginform=loginform)
@@ -199,6 +199,30 @@ def ajaxsecret():
             if update_secret(session['username'], request.form['_id'], (True if request.form['secret']=='1' else False)):
                 return jsonify({'result':'ok'})
         return jsonify({'result':'no'})
+
+@app.route('/ajaxlikeget', methods=['POST'])
+def ajaxlikeget():
+    return jsonify({'resultcount':like_get(request.form['who']+':'+request.form['_id']+':count')})
+
+@app.route('/ajaxlikeoperate', methods=['POST'])
+def ajaxlikeoperate():
+    if request.form['operate'] == '+':
+        if 1:
+        #try:
+            return jsonify({'resultcount':like_incr(request.form['who']+':'+request.form['_id']+':count')})
+        else:
+        #except:
+            return jsonify({'resultcount':'no'})
+    elif request.form['operate'] == '-':
+        if 1:
+        #try:
+            return jsonify({'resultcount':like_decr(request.form['who']+':'+request.form['_id']+':count')})
+        else:
+        #except:
+            return jsonify({'resultcount':'no'})
+    else:
+        return jsonify({'resultcount':'no'})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

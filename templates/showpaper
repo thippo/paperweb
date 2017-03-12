@@ -104,7 +104,7 @@
 <li>
 <div class="praise">
         <span id="praise"><img src="/static/like/zan.png" id="praise-img" /></span>
-        <span id="praise-txt">1455</span>
+        <span id="praise-txt"></span>
         <span id="add-num"><em>+1</em></span>
 </div>
 </li>
@@ -114,14 +114,14 @@
             <h2 id="section-1">BibTex</h2>
             <textarea readonly="readonly" style="width:100%;height:150px;" class="well">{{ paper_dict['bibtex'] }}</textarea>
             <hr>
-            <h2 id="section-3">PDF <small> (<a href="{{ paper_dict['pdfweb'] }}" target=_blank>{{ paper_dict['pdfweb'] }}</a>)</small></h2>
+            <h2 id="section-2">PDF <small> (<a href="{{ paper_dict['pdfweb'] }}" target=_blank>{{ paper_dict['pdfweb'] }}</a>)</small></h2>
 {% if paper_dict['pdfweb'] %}
 <embed id="pdfPlayer" src="{{ paper_dict['pdfweb'] }}" type="application/pdf" width="100%" height="800px" >
 {% else %}
 未添加PDF
 {% endif %}
             <hr>
-            <h2 id="section-2">描述</h2>
+            <h2 id="section-3">描述</h2>
             {{ paper_dict['description'] }}
             <hr>
             <h2 id="section-4">操作</h2>
@@ -153,15 +153,6 @@
 <a href="http://www.jiathis.com/share?uid=2052645" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
 <a class="jiathis_counter_style"></a>
 </div>
-<script type="text/javascript" >
-var jiathis_config={
-	data_track_clickback:true,
-	summary:"",
-	shortUrl:false,
-	hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2052645" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 
 <br>
@@ -262,32 +253,55 @@ $("#usernameid,#passwordid").keydown(function(){
 {% endif %}
 
 <script>
-        $(function(){
-                $("#praise").click(function(){
-                        var praise_img = $("#praise-img");
-                        var text_box = $("#add-num");
-                        var praise_txt = $("#praise-txt");
-                        var num=parseInt(praise_txt.text());
-                        if(praise_img.attr("src") == ("/static/like/yizan.png")){
-                                $(this).html("<img src='/static/like/zan.png' id='praise-img' class='animation' />");
-                                praise_txt.removeClass("hover");
-                                text_box.show().html("<em class='add-animation'>-1</em>");
-                                $(".add-animation").removeClass("hover");
-                                num -=1;
-                                praise_txt.text(num)
-                        }else{
-                                $(this).html("<img src='/static/like/yizan.png' id='praise-img' class='animation' />");
-                                praise_txt.addClass("hover");
-                                text_box.show().html("<em class='add-animation'>+1</em>");
-                                $(".add-animation").addClass("hover");
-                                num +=1;
-                                praise_txt.text(num)
-                        }
-                });
-        })
+$.post('/ajaxlikeget',{'who':'{{ who }}','_id':'{{ paper_dict['_id'] }}'},function(data){$("#praise-txt").text(data.resultcount)})
 </script>
 
+<script>
+                $("#praise").click(function(){
+if ('{{ username }}' == '-'){
+$('#LoginModal').modal('show');
+}else{
+                        if($("#praise-img").attr("src") == ("/static/like/yizan.png")){
+$.post('/ajaxlikeoperate',{'operate':'-','who':'{{ who }}','_id':'{{ paper_dict['_id'] }}'},function(data){
+if (data.resultcount == 'no'){
+$("#add-num").show().html("<em class='add-animation'><small>故障</small></em>");
+$(".add-animation").addClass("hover");
+}else{
+                                $("#praise").html("<img src='/static/like/zan.png' id='praise-img' class='animation' />");
+                                $("#praise-txt").removeClass("hover");
+                                $("#add-num").show().html("<em class='add-animation'>-1</em>");
+                                $(".add-animation").removeClass("hover");
+                                $("#praise-txt").text(data.resultcount)
+}
+})
+                        }else{
+$.post('/ajaxlikeoperate',{'operate':'+','who':'{{ who }}','_id':'{{ paper_dict['_id'] }}'},function(data){
+if (data.resultcount == 'no'){
+$("#add-num").show().html("<em class='add-animation'><small>故障</small></em>");
+$(".add-animation").addClass("hover");
+}else{
+                                $("#praise").html("<img src='/static/like/yizan.png' id='praise-img' class='animation' />");
+                                $("#praise-txt").addClass("hover");
+                                $("#add-num").show().html("<em class='add-animation'>+1</em>");
+                                $(".add-animation").addClass("hover");
+                                $("#praise-txt").text(data.resultcount)
+                        }
+}
+)}
+}
+                });
+</script>
 
+<script type="text/javascript" >
+var jiathis_config={
+        data_track_clickback:true,
+        summary:"",
+        shortUrl:false,
+        hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2052645" charset="utf-8">
+</script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2052645"></script>
 
 </body>
