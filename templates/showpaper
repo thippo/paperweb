@@ -92,6 +92,7 @@
 <p><span class="glyphicon glyphicon-tags"></span>{% for i in paper_dict['tags'] %}&nbsp&nbsp{{ i }}{% endfor %}</p>
         <h2><strong>{{ paper_dict['title'] }}</strong></h2>
 <p class="text-success">{{ paper_dict['author'] }}</p>
+<p class="pull-right"><small>来自{{ who }}的分享</small></p>
     </div>
     <div class="row">
         <div class="col-xs-3" id="myScrollspy">
