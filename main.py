@@ -14,7 +14,7 @@ import hashlib
 import bibtexparser
 
 app = Flask(__name__)
-app.config['SECRET_KEY']='xxx'
+app.config['SECRET_KEY']='xxx'	
 
 @app.before_request
 def make_session_permanent():
@@ -85,13 +85,18 @@ def papers(who, tag_now=''):
 @app.route('/showpaper/<who>/<_id>', methods=['GET', 'POST'])
 def showpaper(who, _id):
     loginform = LoginForm()
-    if 'username' in session and session['username'] == who:
-        paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=True, who=who, loginform=loginform)
-    elif get_secret(who, _id):
-        paper_dict = collections.OrderedDict(get_paper(who, _id))
-        return render_template('showpaper', paper_dict=paper_dict, me=False, who=who, loginform=loginform)
+    if 1:
+    #try:
+        if 'username' in session and session['username'] == who:
+            paper_dict = collections.OrderedDict(get_paper(session['username'], _id))
+            return render_template('showpaper', paper_dict=paper_dict, me=True, who=who, loginform=loginform)
+        elif get_secret(who, _id):
+            paper_dict = collections.OrderedDict(get_paper(who, _id))
+            return render_template('showpaper', paper_dict=paper_dict, me=False, who=who, loginform=loginform)
+        else:
+            return render_template('nopaper', me=False, loginform=loginform)
     else:
+    #except:
         return render_template('nopaper', me=False, loginform=loginform)
 
 @app.route('/editpaper/<who>/<_id>', methods=['GET', 'POST'])
@@ -136,6 +141,7 @@ def deletepaper(who, _id, tag_now=''):
     if 'username' in session and session['username'] == who:
         try:
             remove_paper(session['username'], _id)
+            like_del(session['username']+':'+_id+':likecount')
             flash(alert_div("success", "删除成功"))
         except:
             flash(alert_div("danger", "删除失败"))

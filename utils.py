@@ -17,4 +17,4 @@ def save_pdf_file(pdffile):
     if not os.path.exists('static/papers/'+filemd5name+'.pdf'):
         pdffile.seek(0)
         pdffile.save('static/papers/'+filemd5name+'.pdf')
-    return filemd5name 
+    return filemd5name

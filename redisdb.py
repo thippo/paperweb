@@ -10,3 +10,7 @@ def like_incr(KEY):
 
 def like_decr(KEY):
     return r.decr(KEY)
+
+def like_del(KEY):
+    return r.delete(KEY) if r.exists(KEY) else True
+
