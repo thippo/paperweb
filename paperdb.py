@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*- 
 
-import pymongo
-from pymongo import MongoClient
+from mongodbclient import client
 from bson import ObjectId
 from utils import *
-
-client = MongoClient('mongodb://localhost:27017/')
 
 def _get_collection(username):
     db = client[username]
